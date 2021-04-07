@@ -1,12 +1,12 @@
 ---
 layout: default
-title: CAS - Security Guide
-category: Planning
+title: CAS-安全指南
+category: 概览
 ---
 
-# Security Guide
+# 安全指南
 
-CAS is security software that provides secure Web-based single sign-on to Web-based applications. Single sign-on provides a win/win in terms of security and convenience: it reduces password exposure to a single, trusted credential broker while transparently providing access to multiple services without repetitious logins. The use of CAS generally improves the security environment, but there are several CAS configuration, policy, and deployment concerns that should be considered to achieve suitable security.
+CAS是安全软件，可为基于Web的应用程序提供安全的基于Web的单点登录。 Single sign-on provides a win/win in terms of security and convenience: it reduces password exposure to a single, trusted credential broker while transparently providing access to multiple services without repetitious logins. The use of CAS generally improves the security environment, but there are several CAS configuration, policy, and deployment concerns that should be considered to achieve suitable security.
 
 <div class="alert alert-info"><strong>Reporting Issues</strong><p>The security team asks that you please <strong>DO NOT</strong> create publicly-viewable issues or posts to discuss what you may consider a security vulnerability. To report issues properly and learn about how responses are produced, please <a href="/cas/developer/Sec-Vuln-Response.html">see this guide</a>.</p></div>
 
