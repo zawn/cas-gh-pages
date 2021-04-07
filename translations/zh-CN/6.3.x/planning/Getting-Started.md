@@ -1,12 +1,12 @@
 ---
 layout: default
-title: CAS - Getting Started Guide
-category: Planning
+title: CAS - 开始使用
+category: 概览
 ---
 
-# Getting Started
+# 开始使用
 
-This document provides a high-level guide on how to get started with a CAS server deployment. The sole focus of the guide is describe the process that must be followed and adopted by CAS deployers in order to arrive at a successful and sustainable architecture and deployment.
+本文档提供了有关如何开始进行CAS服务器部署的高级指南。 The sole focus of the guide is describe the process that must be followed and adopted by CAS deployers in order to arrive at a successful and sustainable architecture and deployment.
 
 ## Collect Use Cases
 
