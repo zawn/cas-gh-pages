@@ -38,20 +38,20 @@ CAS [支持的协议和规范](../protocol/Protocol-Overview.html)的列表也�
 
 ## 自定义
 
-This is where use cases get mapped to CAS features. Browse the documentation to find the closest match and apply. Again, it is important that you stick with the CAS baseline as much as possible:
+这是将实际使用场景与CAS功能对应的地方。 浏览文档以找到最接近的匹配项并应用。 同样重要的是，你必须尽可能遵守CAS 基准：
 
-- Avoid making ad-hoc changes to the software internals.
-- Avoid making manual changes to core configuration components such as Spring and Spring Webflow.
-- Avoid making one-off bug fixes to the deployment, should you encounter an issue.
+- 避免对软件内部进行临时更改。
+- 避免对核心配置组件（例如Spring和Spring Webflow）进行手动更改。
+- 如果遇到问题，请避免对部署进行一次性错误修复。
 
-As noted previously, all such strategies lead to headache and cost.
+如前所述，所有这些策略都会令人头痛和花费巨大。
 
-Instead, try to warm up to the following suggestions:
+相反，请积极尝试以下建议：
 
-- Bug fixes and small improvements belong to the core CAS software. Not your deployment. Make every attempt to report issues, contribute fixes and patches and work with the CAS community to solve issues once and for all.
-- Certain number of internal CAS components are made difficult to augment and modify. In most cases, this approach is done on purpose to steer you away from dangerous and needlessly complicated changes. If you come across a need and have a feature or use case in mind whose configuration and implementation requires modifications to the core internals of the software, discuss that with the CAS community and attempt to build the enhancement directly into the CAS software, rather than treating it as a snowflake.
+- 错误修复和小改进属于CAS的核心软件。 不是您的部署。 尽一切努力报告问题，提供修补程序和补丁，并与CAS社区一劳永逸地解决问题。
+- 某些内部CAS组件很难进行扩充和修改。 在大多数情况下，此方法使您远离危险和不必要的复杂更改。 如果你遇到需求或某个功能或用例，并且发现这些配置或者实现需要修改软件的内部核心代码，请与CAS社区讨论，并尝试将完善功能并直接构建到CAS软件中，请不要让你的代码散落在外。
 
-To summarize, only make changes to the deployment configuration if they are truly and completely specific to your needs. Otherwise, try to generalize and contribute back to keep maintenance costs down. Repeatedly, failure to comply with this strategy will likely lead to disastrous results in the long run.
+总而言之，仅在你有真正且完全特别的需求的时候在修改你的部署配置。 否则，请尝试总结并贡献相关需求实现以降低维护成本。 长期而言，不遵守该策略可能会导致灾难性的后果。
 
 ## 故障排查
 
