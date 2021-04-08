@@ -1,20 +1,20 @@
 ---
 layout: default
-title: CAS - Overlay Installation
-category: Installation
+title: CAS - 叠加安装
+category: 安装
 ---
 
-# WAR Overlay Installation
+# WAR 叠加安装
 
-CAS installation is a fundamentally source-oriented process, and we recommend a WAR overlay (1) project to organize customizations such as component configuration and UI design. The output of a WAR overlay build is a `cas.war` file that can be deployed to a servlet container like [Apache Tomcat](Configuring-Servlet-Container.html).
+CAS安装是从根本上来说是面向源代码的过程，我们建议您使用WAR overlay（1）项目来组织自定义设置，例如组件配置和UI设计。 WAR覆盖最终会构建输出是一个 `cas.war` 文件，可以将其部署到servlet容器（如 [Apache Tomcat](Configuring-Servlet-Container.html)。
 
-## Requirements
+## 安装要求
 
 [See this guide](../planning/Installation-Requirements.html) to learn more.
 
-## What is a WAR Overlay?
+## 什么是WAR覆盖
 
-Overlays are a strategy to combat repetitive code and/or resources. Rather than downloading the CAS codebase and building from source, overlays allow you to download a pre-built vanilla CAS web application server provided by the project itself and override/insert specific behavior into it. At build time, the build installation process will attempt to download the provided binary artifact first. Then the tool will locate your configuration files and settings made available inside the same project directory and will merge those into the downloaded artifact in order to produce one wholesome archive (i.e. `cas.war`) . Overridden artifacts may include resources, java classes, images, CSS and javascript files. In order for the merge process to successfully execute, the location and names of the overridden artifacts locally must **EXACTLY** match that of those provided by the project inside the originally downloaded archive. Java code in the overlay project's `src/main/java` folder and resources in `src/main/resources` will end up in the `WEB-INF\classes` folder of cas.war and they will be loaded by the classloader instead of resources with the same names in jar files inside `WEB-INF\lib`.
+覆盖是一种对抗重复代码和/或资源的策略。 与下载CAS代码库并从源代码进行构建不同，WAR叠加允许您下载项目本身提供的预构建的普通CAS web应用程序服务器，并覆盖/插入特定的行为。 在构建时，构建安装过程将首先尝试下载提供的二进制工件。 然后，该工具将在相同的项目目录中找到您的配置文件和可用的设置，并将它们合并到下载的工件中，以便生成一个完整的存档(即`cas.war`)。 覆盖的工件可能包括资源、java类、图像、CSS和javascript文件。 为了使合并进程成功执行，被覆盖的工件的位置和名称必须与该项目提供原始下载的存档位置和名称进行 **精确地** 的匹配，。 Java code in the overlay project's `src/main/java` folder and resources in `src/main/resources` will end up in the `WEB-INF\classes` folder of cas.war and they will be loaded by the classloader instead of resources with the same names in jar files inside `WEB-INF\lib`.
 
 It goes without saying that while up-front ramp-up time could be slightly complicated, there are significant advantages to this approach:
 
@@ -59,7 +59,7 @@ You should always make sure the branch you are on matches the version of CAS you
 branch typically points to the latest stable release of the CAS server. Check the build configuration and if inappropriate,
 use <code>git branch -a</code> to see available branches, and then <code>git checkout [branch-name]</code> to switch if necessary.</p></div>
 
-| Project                                                           | Build Directory           | Source Directory     |
+| 项目                                                                | Build Directory           | Source Directory     |
 | ----------------------------------------------------------------- | ------------------------- | -------------------- |
 | [CAS WAR Overlay](https://github.com/apereo/cas-overlay-template) | `cas/build/cas-resources` | `src/main/resources` |
 
@@ -79,11 +79,11 @@ To learn more about the configuration server, please [review this guide](../conf
 
 ## Dockerized Deployment
 
-See [this guide](Docker-Installation.html) for more info.
+有关更多信息，请参见 [本指南](Docker-Installation.html)
 
 ## Servlet Container
 
-CAS can be deployed to a number of servlet containers. See [this guide](Configuring-Servlet-Container.html) for more info.
+CAS can be deployed to a number of servlet containers. 有关更多信息，请参见 [本指南](Configuring-Servlet-Container.html)
 
 ## Custom and Third-Party Source
 
