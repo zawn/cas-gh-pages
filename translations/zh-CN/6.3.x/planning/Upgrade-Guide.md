@@ -6,7 +6,7 @@ category: 概览
 
 # 升级指南
 
-一般来说，建议采用者尽量保持其 CAS 部署与最新的 CAS 版本保持一致。 特别是，应立即应用 `PATCH` 或 `SECURITY` 性质的发行版，因为它们是其对应父版本的直接替换。 有关更多信息，请参见CAS [发布策略](../../developer/Release-Policy.html)
+一般来说，建议使用者尽量保持其 CAS 部署与最新的 CAS 版本保持一致。 特别是，应立即应用 `PATCH` 或 `SECURITY` 性质的发行版，因为它们是其对应父版本的直接替换。 有关更多信息，请参见CAS [发布策略](../../developer/Release-Policy.html)
 
 CAS升级的总体目标可能是：
 
