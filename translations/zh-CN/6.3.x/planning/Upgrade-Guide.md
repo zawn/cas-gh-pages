@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAS - Upgrade Guide
-category: Planning
+category: 概览
 ---
 
-# Upgrade Guide
+# 升级指南
 
-In general, it is recommended that adopters try to keep their CAS deployment in alignment with the latest CAS version available. In particular, releases that are of `PATCH` or `SECURITY` nature should be immediately applied as they are drop-in replacements for their corresponding parent version. See CAS [Release Policy](../../developer/Release-Policy.html) for more info.
+一般来说，建议采用者尽量保持其 CAS 部署与最新的 CAS 版本保持一致。 特别是，应立即应用 `PATCH` 或 `SECURITY` 性质的发行版，因为它们是其对应父版本的直接替换。 有关更多信息，请参见CAS [发布策略](../../developer/Release-Policy.html)
 
-The general objectives of a CAS upgrade could be:
+CAS升级的总体目标可能是：
 
 1. Does the upgrade fix a critical security vulnerability or annoying issue? Is my CAS deployment affected by that vulnerability and/or bug?
 2. Does the upgrade present features that might be useful to achieve local use cases?
