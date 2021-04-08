@@ -70,57 +70,55 @@ CAS客户端和许多受支持的协议都支持强制身份验证的概念，�
 
 代理身份验证或委托身份验证提供了强大，重要且可能会提高CAS安全性的功能。 代理身份验证受CASv2和CASv3协议支持，并由服务代表用户请求Proxy票据，因此，该服务代理了用户的身份验证。 代理身份验证通常用于服务无法直接与用户交互的情况，并且是将最终用户凭据传播到服务。
 
-但是，代理票据存在风险，因为接受票据的服务负责验证代理链（服务列表，通过该服务列表，最终用户的身份验证被委派到了票据验证服务）。 Services can opt out of accepting proxy tickets entirely (and avoid responsibility for validating proxy chains) by validating tickets against the /serviceValidate validation endpoint, but experience has shown it's easy to be confused about this and configure to unintentionally use the /proxyValidate endpoint yet not scrutinize any proxy chains that appear in the ticket validation response. Thus proxy authentication requires careful configuration for proper security controls; it is recommended to disable proxy authentication components at the CAS server if proxy authentication is not needed.
+但是，代理票据存在风险，因为接受票据的服务负责验证代理链（服务列表，通过该服务列表，最终用户的身份验证被委派到了票据验证服务）。 服务可以选择在 /serviceValidate 验证端点进行票据验证，从而完全不接受代理票据（以避免需要验证代理链），但是经验表明，很容易无意中配置了 /proxyValidate 端点且 没有仔细检查在票据验证相应中出现的任何代理链。 因此，代理身份验证需要仔细配置以进行适当的安全控制。如果不需要代理验证建议在CAS服务器配置中禁用它。
 
-Historically any service could obtain a proxy-granting ticket and from it a proxy ticket to access any other service. In other words, the security model is decentralized rather than centralized. The service management facility affords some centralized control of proxy authentication by exposing a proxy authentication flag that can enabled or disabled on a per-service basis. By default registered services are not granted proxy authentication capability.
+从理论上说，任何服务都可以获取代理授予票据（PGT），并从中获得访问任何其他服务的代理票据（PT）。 换句话说，安全模型是分散的而不是集中的。 服务管理设施通过可以通过对每个服务所暴露出来的一些代理验证的配置项对代理验证做一些集中的控制。 默认情况下，注册的服务不被授予代理身份验证功能。
 
 ### 凭据缓存和传播
 
-The _ClearPass_ extension provides a mechanism to capture primary authentication credentials, cache them (encrypted), and replay on demand as needed to access legacy services. While [proxy authentication](#proxy-authentication) is recommended in lieu of password replay, it may be required to integrate legacy services with CAS. See the [ClearPass](../integration/ClearPass.html) documentation for detailed information.
+_ClearPass_ 扩展提供了一个获取主要认证凭据的机制； 并将凭据缓存(加密)、并使用它访问旧版服务。 虽然提倡在需要使用密码的时候使用[代理验证](#proxy-authentication)代替，但是在旧版服务与CAS集成的时候该方式可能仍然需要。 有关详细信息，请参见[ClearPass](../integration/ClearPass.html)
 
 
 ### 服务管理
 
-The service management facility provides a number of service-specific configuration controls that affect security policy and provide some support for centralized security policy. (Note that CAS has historically supported the decentralized security policy model.) Some highlights of service management controls:
+服务管理工具提供了许多特定于服务的配置控件，这些配置控件会影响安全性策略并为集中式安全性策略提供一些支持。 （请注意，CAS一直以来都支持分散式安全策略模型。）服务管理能控制的一些功能点：
 
-* Authorized services
-* Forced authentication
-* Attribute release
-* Proxy authentication control
-* Theme control
-* Service authorization control
-* Multi-factor service access policy
+* 经授权的服务
+* 强制验证
+* 属性发布
+* 代理验证控制
+* 主题控制
+* 服务授权控制
+* 多因素服务访问策略
 
-The service management facility is comprised of a service registry containing one or more registered services, each of which specifies the management controls above. The service registry can be controlled via static configuration files, a Web user interface, or both. See the [Service Management](../services/Service-Management.html) section for more information.
+服务管理工具由一个服务注册表组成，该服务注册表包含一个或多个已注册的服务，其中描述了针对具体服务可用的理控制方法。 可以通过静态配置文件，或Web用户界面或两者来控制服务注册表。 有关更多信息，请参见 [服务管理](../services/Service-Management.html)
 
 <div class="alert alert-warning"><strong>服务授权</strong><p>
-As a security best practice, it is <strong>strongly</strong> recommended to limit the service management facility
-to only include the list of known applications that are authorized to use CAS. Leaving the management interface
-open for all applications may create an opportunity for security attacks.
+作为安全性最佳实践，<strong>强烈</strong> 推荐限制服务管理工具仅包括被授权使用CAS的已知应用程序的列表。 在管理界面中将所有应用程序的配置打开可能会造成安全攻击的机会。
 </p></div>
 
 ### SSO Cookie加密
 
-A ticket-granting cookie is an HTTP cookie set by CAS upon the establishment of a single sign-on session. The cookie value is by default encrypted and signed via settings defined in CAS properties. While sample data is provided for initial deployments, these keys **MUST** be regenerated per your specific environment. Please [see this guide](../installation/Configuring-SSO.html) for more info.
+*TGC*（授予票据cookie）是CAS在建立单点登录会话时设置的HTTP cookie。 默认情况下，cookie值是通过CAS属性中定义的设置进行加密和签名的。 虽然为初始部署提供了示例数据，但这些密钥 **必须** 根据您的指定环境重新生成。 请 [参阅本指南](../installation/Configuring-SSO.html) 了解更多信息。
 
 ### 密码管理中的安全链接
 
-Account password reset requests are handled via a secured link that is sent to the registered email address of the user. The link is available only within a defined time window and the request is properly signed and encrypted by CAS. While sample data is provided for initial deployments, these keys **MUST** be regenerated per your specific environment.
+帐户密码重置请求通过安全链接处理，该链接发送到用户的注册电子邮件地址。 该链接仅在定义的时间窗口内可用，并且该请求已由CAS正确签名和加密。 虽然为初始部署提供了示例数据，但这些密钥 **必须** 根据您的指定环境重新生成。
 
-Please [see this guide](../installation/Password-Policy-Enforcement.html) for more info.
+请 [参阅本指南](../installation/Password-Policy-Enforcement.html) 了解更多信息。
 
 ### 协议票据加密
 
-Protocol tickets that are issued by CAS and shared with other applications such as service tickets may optionally go through a signing/encryption process. Even though the CAS server will always cross check ticket validity and expiration policy, this may be forced as an extra check to ensure tickets in transit to other applications are not tampered with and remain to be authentic. While sample data is provided for initial deployments, these keys **MUST** be regenerated per your specific environment.
+由CAS发行并与其他应用程序共享的协议票据（例如服务票据）可以选择进行签名/加密过程。 即使CAS服务器将始终交叉检查票证的有效性和过期策略，CAS也可能额外强制校验票据的签名/加密，以确保传输到其他应用程序的票据不会被篡改并保持真实性。 虽然为初始部署提供了示例数据，但这些密钥 **必须** 根据您的指定环境重新生成。
 
-<div class="alert alert-warning"><strong>请注意</strong><p>Encrypting and signing a generated ticket will, depending on the encryption method and algorithm used, increase the generated ticket length. Not all CAS clients are equipped to handle lengthy ticket strings and may get upset with you. Evaluate existing integrations before turning this on and consider whether this feature is truly needed for your deployment.</p></div>
+<div class="alert alert-warning"><strong>请注意</strong><p>根据所使用的加密方法和算法，对生成的票据进行加密和签名将增加生成的票据的长度。 并非所有的CAS客户都具备处理冗长的票据字符串的能力，这可能会给你带来额外的工作。 在启用此功能之前，请先评估现有的集成，并考虑您的部署是否真正需要此功能。</p></div>
 
-To see the relevant list of CAS properties, please [review this guide](../configuration/Configuration-Properties.html#protocol-ticket-security).
+要查看CAS与之相关属性设置，请 [查阅本指南](../configuration/Configuration-Properties.html#protocol-ticket-security)。
 
 
 ### Ticket Registry Encryption
 
-Secure ticket replication as it regards clustered CAS deployments may be required to ensure generated tickets by CAS are not tampered with in transit. CAS covers this issue by allowing tickets to be natively encrypted and signed. While sample data is provided for initial deployments, these keys **MUST** be regenerated per your specific environment. Please [see this guide](../installation/Ticket-Registry-Replication-Encryption.html) for more info.
+对于集群式CAS部署，可能需要安全的票据复制，以确保CAS生成的票据在传输过程中不被篡改。 CAS通过允许对票据进行本机加密和签名来解决此问题。 虽然为初始部署提供了示例数据，但这些密钥 **必须** 根据您的指定环境重新生成。 请 [参阅本指南](../installation/Ticket-Registry-Replication-Encryption.html) 了解更多信息。
 
 ### 管理页面的安全
 
