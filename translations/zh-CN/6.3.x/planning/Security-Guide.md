@@ -29,48 +29,48 @@ CAS是安全软件，可为基于Web的应用程序提供安全的基于Web的�
 
 ### 传输安全（https）
 
-All communication with the CAS server MUST occur over a secure channel (i.e. TLSv1). There are two primary justifications for this requirement:
+与CAS服务器的所有通信都必须通过安全通道（即TLSv1）进行。 此要求基于以下两个原因：
 
-1. The authentication process requires transmission of security credentials.
-2. The CAS ticket-granting ticket is a bearer token.
+1. 身份验证过程需要传输安全凭证。
+2. CAS TGT票据是一个不记名令牌。
 
-Since the disclosure of either data would allow impersonation attacks, it's vitally important to secure the communication channel between CAS clients and the CAS server.
+由于任何一种数据的泄露都可能造成模拟攻击，因此保护CAS客户端和CAS服务器之间交互通道的安全性是至关重要的。
 
-Practically, it means that all CAS urls must use HTTPS, but it **also** means that all connections from the CAS server to the application must be done using HTTPS:
+实际上，这意味着所有CAS向外提供的所有URL必须使用HTTPS， **也** 意味着必须使用HTTPS完成从CAS服务器到应用程序的所有连接
 
-- when the generated service ticket is sent back to the application on the "service" url
-- when a proxy callback url is called.
+- 比如CAS服务器通过服务的回调URL向应用程序传递生成的服务票据（ST）
+- 比如调用代理回调URL
 
-To see the relevant list of CAS properties and tune this behavior, please [review this guide](../configuration/Configuration-Properties.html#http-client).
+要查看或者调整CAS与之相关属性设置，请 [查阅本指南](../configuration/Configuration-Properties.html#http-client)。
 
 
 ### 与相关系统的连接
 
-CAS commonly requires connections to other systems such as LDAP directories, databases, and caching services. We generally recommend to use secure transport (SSL/TLS, IPSec) to those systems where possible, but there may be compensating controls that make secure transport unnecessary. Private networks and corporate networks with strict access controls are common exceptions, but secure transport is recommended nonetheless. Client certification validation can be another good solution for LDAP to bring sufficient security.
+CAS通常需要连接到其他系统，例如LDAP目录，数据库和缓存服务。 我们通常建议在可能的情况下使用到这些系统的安全传输（SSL / TLS，IPSec），也可能通过一些其他设置来满足安全传输的要求。 常见的例外情况是具有严格的准入控制的专用网络和公司网络，但仍然建议使用安全运输。 客户端证书验证可能是给LDAP提供足够安全性的另一个很好的解决方案。
 
-As stated previously, connections to other systems must be secured. But if the CAS server is deployed on several nodes, the same applies to the CAS server itself. If a cache-based ticket registry runs without any security issue on a single CAS server, synchronization can become a security problem when using multiple nodes if the network is not protected.
+如前所述，与其他系统的连接必须要是安全的。 但是，如果将CAS服务器部署在多个节点上，则表示CAS服务器本身。 例如基于缓存的票据注册在使用单个CAS服务器时候没有任何安全问题，但在网络不受保护的情况下使用多个节点时，同步可能会带来安全问题。
 
-Any disk storage is also vulnerable if not properly secured. EhCache overflow to disk may be turned off to increase protection whereas advanced encryption data mechanism should be used for the database disk storage.
+如果没有适当地保护，任何磁盘存储也很容易受到攻击。 可以关闭EhCache到磁盘缓存来增加保护，而数据库磁盘存储应使用高级数据加密机制。
 
 ## 增加安全特性
 
-CAS supports a number of features that can be leveraged to implement various security policies. The following features are provided through CAS configuration and CAS client integration. Note that many features are available out of the box, while others require explicit setup
+CAS支持许多可用于实施各种安全策略的功能。 对CAS服务端和CAS客户端的进行相关配置，CAS提供以下功能。 请注意，许多功能都是开箱即用的，而其他功能则需要显式设置
 
 ### 强制验证
 
-Many CAS clients and supported protocols support the concept of forced authentication whereby a user must re-authenticate to access a particular service. The CAS protocols support forced authentication via the _renew_ parameter. Forced authentication provides additional assurance in the identity of the principal of an SSO session since the user must verify his or her credentials prior to access. Forced authentication is suitable for services where higher security is desired or mandated. Typically forced authentication is configured on a per-service basis, but the [service management](#service-management) facility provides some support for implementing forced authentication as a matter of centralized security policy. Forced authentication may be combined with [multi-factor authentication](../configuration/Configuration-Properties.html#multifactor-authentication) features to implement arbitrary service-specific access control policy.
+CAS客户端和许多受支持的协议都支持强制身份验证的概念，即用户必须重新进行身份验证才能访问特定服务。 CAS 协议支持通过 _renew_ 参数支持强制验证。 强制身份验证为SSO会话的主体提供了额外的安全保障，因为用户必须在访问之前验证他或她的凭证。 强制身份验证适用于需要或强制要求更高安全性的服务。 通常强制身份验证是每个服务安需要配置的。 但 [服务管理](#service-management) 集中管理安全策略的基础设施也为强制验证提供一些具体的支持。 强制身份验证可以与[多因素身份验证](../configuration/Configuration-Properties.html#multifactor-authentication) 功能相结合从而为特定服务的实施任意的访问控制策略。
 
 
 ### 被动验证
 
-Some CAS protocols support passive authentication where access to a CAS-protected service is granted anonymously when requested. The CASv2 and CASv3 protocols support this capability via the _gateway_ feature. Passive authentication complements forced authentication; where forced authentication requires authentication to access a service, passive authentication permits service access, albeit anonymously, without authentication.
+在匿名访问服务过程中，当访问被CAS保护的服务的时候，某些CAS协议支持被动身份验证。 CASv2和CASv3协议通过 _gateway_ 功能支持此功能。 被动身份验证是对强制身份验证的补充；在强制身份验证需要身份验证才能访问服务的情况下，被动 身份验证允许服务访问（尽管是匿名的），而无需身份验证。
 
 
 ### 代理验证
 
-Proxy authentication, or delegated authentication, provides a powerful, important, and potentially security-improving feature of CAS. Proxy authentication is supported by the CASv2 and CASv3 protocols and is mediated by proxy tickets that are requested by a service on behalf of a user; thus the service proxies authentication for the user. Proxy authentication is commonly used in cases where a service cannot interact directly with the user and as an alternative to replaying end-user credentials to a service.
+代理身份验证或委托身份验证提供了强大，重要且可能会提高CAS安全性的功能。 代理身份验证受CASv2和CASv3协议支持，并由服务代表用户请求Proxy票据，因此，该服务代理了用户的身份验证。 代理身份验证通常用于服务无法直接与用户交互的情况，并且是将最终用户凭据传播到服务。
 
-However, proxy tickets carry risk in that services accepting proxy tickets are responsible for validating the proxy chain (the list of services through which the end-user's authentication have been delegated to arrive at the ticket validating service). Services can opt out of accepting proxy tickets entirely (and avoid responsibility for validating proxy chains) by validating tickets against the /serviceValidate validation endpoint, but experience has shown it's easy to be confused about this and configure to unintentionally use the /proxyValidate endpoint yet not scrutinize any proxy chains that appear in the ticket validation response. Thus proxy authentication requires careful configuration for proper security controls; it is recommended to disable proxy authentication components at the CAS server if proxy authentication is not needed.
+但是，代理票据存在风险，因为接受票据的服务负责验证代理链（服务列表，通过该服务列表，最终用户的身份验证被委派到了票据验证服务）。 Services can opt out of accepting proxy tickets entirely (and avoid responsibility for validating proxy chains) by validating tickets against the /serviceValidate validation endpoint, but experience has shown it's easy to be confused about this and configure to unintentionally use the /proxyValidate endpoint yet not scrutinize any proxy chains that appear in the ticket validation response. Thus proxy authentication requires careful configuration for proper security controls; it is recommended to disable proxy authentication components at the CAS server if proxy authentication is not needed.
 
 Historically any service could obtain a proxy-granting ticket and from it a proxy ticket to access any other service. In other words, the security model is decentralized rather than centralized. The service management facility affords some centralized control of proxy authentication by exposing a proxy authentication flag that can enabled or disabled on a per-service basis. By default registered services are not granted proxy authentication capability.
 
