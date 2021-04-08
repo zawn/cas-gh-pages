@@ -75,7 +75,7 @@ layout:
     *   [委托](/$version/integration/Delegate-Authentication.html)
         *   [SAML2](/$version/integration/Delegate-Authentication-SAML.html)
         *   [ADFS](/$version/integration/ADFS-Integration.html)
-    *   [限制验证尝试](/$version/installation/Configuring-Authentication-Throttling.html)
+    *   [登录限制](/$version/installation/Configuring-Authentication-Throttling.html)
     *   [地理位置跟踪](/$version/installation/GeoTracking-Authentication-Requests.html)
     *   [代理验证](/$version/installation/Configuring-Proxy-Authentication.html)
     *   [事件](/$version/installation/Configuring-Authentication-Events.html)
