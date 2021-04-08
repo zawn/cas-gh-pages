@@ -10,24 +10,24 @@ CAS是安全软件，可为基于Web的应用程序提供安全的基于Web的�
 
 <div class="alert alert-info"><strong>Reporting Issues</strong><p>The security team asks that you please <strong>DO NOT</strong> create publicly-viewable issues or posts to discuss what you may consider a security vulnerability. To report issues properly and learn about how responses are produced, please <a href="/cas/developer/Sec-Vuln-Response.html">see this guide</a>.</p></div>
 
-## Announcements
+## 公告
 
-- [Oct 14 2020 Vulnerability Disclosure](https://apereo.github.io/2020/10/14/gauthvuln/)
-- [July 24 2020 Vulnerability Disclosure](https://apereo.github.io/2020/07/24/credvuln/)
-- [Feb 8 2020 Vulnerability Disclosure](https://apereo.github.io/2020/02/08/webflowcrypto/)
-- [Dec 20 2019 Vulnerability Disclosure](https://apereo.github.io/2019/12/20/surrogatevuln/)
-- [Nov 21 2019 Vulnerability Disclosure](https://apereo.github.io/2019/11/24/smfavuln/)
-- [Sep 27 2019 Vulnerability Disclosure](https://apereo.github.io/2019/09/27/numvulndisc/)
-- [Sep 26 2018 Vulnerability Disclosure](https://apereo.github.io/2018/09/26/mfavulndisc/)
-- [Mar 6 2017 Vulnerability Disclosure](https://apereo.github.io/2017/03/06/moncfgsecvulndisc/)
-- [Oct 24 2016 Vulnerability Disclosure](https://apereo.github.io/2016/10/24/servlvulndisc/)
-- [Apr 8 2016 Vulnerability Disclosure](https://apereo.github.io/2016/04/08/commonsvulndisc/)
+- [2020年10月14日漏洞披露](https://apereo.github.io/2020/10/14/gauthvuln/)
+- [2020年7月24日漏洞披露](https://apereo.github.io/2020/07/24/credvuln/)
+- [2020年2月8日漏洞披露](https://apereo.github.io/2020/02/08/webflowcrypto/)
+- [2019年12月20日漏洞披露](https://apereo.github.io/2019/12/20/surrogatevuln/)
+- [2019年11月21日漏洞披露](https://apereo.github.io/2019/11/24/smfavuln/)
+- [2019年9月27日漏洞披露](https://apereo.github.io/2019/09/27/numvulndisc/)
+- [2018年9月26日漏洞披露](https://apereo.github.io/2018/09/26/mfavulndisc/)
+- [2017年3月6日漏洞披露](https://apereo.github.io/2017/03/06/moncfgsecvulndisc/)
+- [2016年10月24日漏洞披露](https://apereo.github.io/2016/10/24/servlvulndisc/)
+- [2016年4月8日漏洞披露](https://apereo.github.io/2016/04/08/commonsvulndisc/)
 
-## System Security Considerations
+## 系统安全注意事项
 
-Infrastructure security matters to consider may include the following.
+要考虑的基础设施安全事项可能包括以下内容。
 
-### Secure Transport (https)
+### 传输安全（https）
 
 All communication with the CAS server MUST occur over a secure channel (i.e. TLSv1). There are two primary justifications for this requirement:
 
