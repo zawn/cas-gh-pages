@@ -116,59 +116,59 @@ _ClearPass_ 扩展提供了一个获取主要认证凭据的机制； 并将凭�
 要查看CAS与之相关属性设置，请 [查阅本指南](../configuration/Configuration-Properties.html#protocol-ticket-security)。
 
 
-### Ticket Registry Encryption
+### 票据注册表加密
 
 对于集群式CAS部署，可能需要安全的票据复制，以确保CAS生成的票据在传输过程中不被篡改。 CAS通过允许对票据进行本机加密和签名来解决此问题。 虽然为初始部署提供了示例数据，但这些密钥 **必须** 根据您的指定环境重新生成。 请 [参阅本指南](../installation/Ticket-Registry-Replication-Encryption.html) 了解更多信息。
 
 ### 管理页面的安全
 
-CAS provides a large variety of web interfaces that are aimed at system administrators and deployers. These screens along with a number of REST endpoints allow a CAS deployer to manage and reconfigure CAS behavior without resorting to native command-line interfaces. Needless to say, these endpoints and screens must be secured and allowed proper access only to authorized parties. Please [see this guide](../monitoring/Monitoring-Statistics.html) for more info.
+CAS提供了许多针对系统管理员和部署人员的Web界面。 这些界面以及许多REST端点使CAS部署者可以管理和重新配置CAS行为，而无需使用本机命令行界面。 不用说，这些端点和界面必须受到保护，并且仅允许正确的授权方访问。 请 [参阅本指南](../monitoring/Monitoring-Statistics.html) 了解更多信息。
 
 ### 票据过期政策
 
-Ticket expiration policies are a primary mechanism for implementing security policy. Ticket expiration policy allows control of some important aspects of CAS SSO session behavior:
+票据过期策略是实现安全策略的主要机制。 票证过期策略允许对CAS SSO一些重要的行为进行控制：
 
-* SSO session duration (sliding expiration, absolute)
-* Ticket reuse
+* SSO会话时长（滚动有效期，绝对值有效期）
+* 票据重用
 
-See the [Configuring Ticketing Components](../ticketing/Configuring-Ticketing-Components.html) section for a detailed discussion of the various expiration policies and configuration instructions.
+有关各种到期策略和配置说明的详细讨论，请参见[配置票证组件](../ticketing/Configuring-Ticketing-Components.html)
 
 ### 单点登出
 
-Single sign-out, or single log-out (SLO), is a feature by which CAS services are notified of the termination of a CAS SSO session with the expectation that services terminate access for the SSO session owner. While single sign-out can improve security, it is fundamentally a best-effort facility and may not actually terminate access to all services consumed during an SSO session. The following compensating controls may be used to improve risks associated with single sign-out shortcomings:
+单点注销或单点注销（SLO）是一项功能，通过该功能可通知CAS服务CAS SSO会话的终止，并期望服务终止对SSO会话所有者的访问。 尽管单点登出可以提高安全性，但从根本上来说，这是一种尽力而为的功能，并且可能无法在SSO会话结束后终止对所有的服务的访问。 以下补偿性措施可以减少单点登出这个缺陷相关的风险：
 
-* Require forced authentication for sensitive services
-* Reduce application session timeouts
-* Reduce SSO session duration
+* 要求对敏感服务进行强制认证
+* 减少应用程序会话超时时间设置
+* 减少SSO会话持续时间
 
-SLO can happen in two ways: from the CAS server (back-channel logout) and/or from the browser (front-channel logout). For back-channel logout, the SLO process relies on the `SimpleHttpClient` class which has a threads pool: its size must be defined to properly treat all the logout requests. Additional not-already-processed logout requests are temporarily stored in a queue before being sent: its size is defined to 20% of the global capacity of the threads pool and can be adjusted. Both sizes are critical settings of the CAS system and their values should never exceed the real capacity of the CAS server.
+SLO会在两种情况下触发：从CAS服务器（后台渠道注销）和/或从浏览器（前台渠道注销）。 对于后台渠道注销，SLO进程依赖于 `SimpleHttpClient` 类的线程池：必须定义该线程池的大小才能正确处理所有注销请求。 对于线程池尚未处理的注销请求在执行之前被临时存储在队列中：队列的大小定义为线程池全局容量的20％，并且可以调整。 这两个值都是CAS系统的关键设置，它们的大小不能超过CAS服务器的实际承载能力。
 
 
 ### 登录限制
 
-CAS supports a policy-driven feature to limit successive failed authentication attempts to help prevent brute force and denial of service attacks. The feature is beneficial in environments where back-end authentication stores lack equivalent features. In cases where this support is available in underlying systems, we encourage using it instead of CAS features; the justification is that enabling support in underlying systems provides the feature in all dependent systems including CAS. See the [login throttling configuration](../installation/Configuring-Authentication-Components.html#login-throttling) section for further information.
+CAS支持策略驱动的功能，以限制连续失败的身份验证尝试，以帮助防止暴力破解和拒绝服务攻击。 该功能在缺少等效功能的后端身份验证环境中很有用。 如果在基础系统中可以使用此支持，我们建议您使用它代替CAS功能中的理由是在底层系统中启用支持可在包括CAS在内的。 有关更多信息，请参见 [登录限制配置](../installation/Configuring-Authentication-Components.html#login-throttling)
 
 ### 凭证加密
 
-To learn how sensitive CAS settings can be secured via encryption, [please review this guide](../configuration/Configuration-Properties-Security.html).
+要了解那些CAS的敏感设置可以完成凭据的加密， [请参阅本指南](../configuration/Configuration-Properties-Security.html)。
 
 ### CAS安全过滤
 
-The CAS project provides a number of a blunt [generic security filters][cas-sec-filter] suitable for patching-in-place Java CAS server and Java CAS client deployments vulnerable to certain request parameter based bad-CAS-protocol-input attacks. The filters are configured to sanitize authentication request parameters and reject the request if it is not compliant with the CAS protocol in the event that for instance, a parameter is repeated multiple times, includes multiple values, contains unacceptable values, etc.
+CAS项目提供了多个 [通用安全过滤器][cas-sec-filter] ，这些过滤器适合修补Java CAS服务器和Java CAS客户端部署，用以阻止针对不良CAS协议输入的常见的请求参数攻击。 过滤器配置为消除验证请求中的非法参数，拒绝不符合CAS协议流的请求，例如，如果参数重复多次，包含多个值，包含不可接受的值等。
 
-It is **STRONGLY** recommended that all CAS deployments be evaluated and include this configuration if necessary to prevent protocol attacks in situations where the CAS container and environment are unable to block malicious and badly-configured requests.
+**强烈** 建议所有的 CAS 部署，评估并在必要时启用此配置，以防止在 CAS 容器和环境无法阻止恶意和错误配置的请求的情况下的 协议攻击。
 
 #### CORS
 
-CAS provides first-class support for enabling HTTP access control (CORS). One application of CORS is when a resource makes a cross-origin HTTP request when it requests a resource from a different domain than the one which the first resource itself serves. This should help more with CAS-enabled applications are accessed via XHR/Ajax requests.
+CAS为启用HTTP访问控制（CORS）提供了一流的支持。 CORS的一种解释是服务的某个资源向与该服务所在域名不同的域名请求资源时，那么该资源发出跨域HTTP请求。 这将有助于通过XHR/Ajax 请求访问启用CAS的个应用。
 
-To see the relevant list of CAS properties and tune this behavior, please [review this guide](../configuration/Configuration-Properties.html#http-web-requests).
+要查看或者调整CAS与之相关属性设置，请[查阅本指南](../configuration/Configuration-Properties.html#http-web-requests)。
 
 #### 安全响应头部
 
-As part of the CAS Security Filter, the CAS project automatically provides the necessary configuration to insert HTTP Security headers into the web response to prevent against HSTS, XSS, X-FRAME and other attacks. These settings are presently on by default. To see the relevant list of CAS properties and tune this behavior, please [review this guide](../configuration/Configuration-Properties.html#http-web-requests).
+作为CAS安全过滤器的一部分，CAS项目自动提供必要的配置，以将HTTP安全标头插入Web响应，以防止受到HSTS，XSS，X-FRAME和其他攻击。 这些设置当前默认为启用。 要查看或者调整CAS与之相关属性设置，请[查阅本指南](../configuration/Configuration-Properties.html#http-web-requests)。
 
-To review and learn more about these options, please visit [this guide][cas-sec-filter].
+要查看并了解有关这些选项的更多信息，请访问 [本指南][cas-sec-filter]。
 
 ### Spring Webflow会话
 
