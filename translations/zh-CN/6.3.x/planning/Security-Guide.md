@@ -185,7 +185,7 @@ CAS项目使用Spring Webflow来管理和协调认证过程。 Webflow的会话�
 
 ### 警告
 
-CAS supports optional notification of service access during an established SSO session. By default CAS transparently requests tickets needed for service access and presents them to the target service for validation, whereby upon successful validation access to the service is permitted. In most cases this happens nearly instantly and the user is not aware of the CAS authentication process required to access CAS-enabled services. There may be some security benefit to awareness of this process, and CAS supports a _warn_ flag that may be selected by the user on the CAS login screen to provide an interstitial notification page that is displayed prior to accessing a service. By default the notification page offers the user an option to proceed with CAS authentication or abort by navigating away from the target service.
+在已建立的SSO会话期间，CAS可以选择在访问服务的时候的发出通知。 默认情况下，CAS透明地请求服务访问所需的票据，并将票据提供给目标服务以进行验证，从而在成功验证后允许访问该服务。 在大多数情况下，这个过程很快，用户并不知道服务请求了CAS服务端进行了验证过程。 使用户了解这个过程可能有安全上的好处，并且CAS支持 _警告_ 标志，该标志位于登录页面，用于可以启用该功能用于提供在访问服务之前显示一个过渡的通知页面。 默认情况下，通知页面为用户提供了继续进行CAS身份验证，或者中止验证的并通过导航离开目标服务的选项。
 
 [cas-sec-filter]: https://github.com/apereo/cas-server-security-filter
 
