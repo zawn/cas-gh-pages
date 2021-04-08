@@ -6,9 +6,9 @@ category: 概览
 
 # 安全指南
 
-CAS is security software that provides secure Web-based single sign-on to Web-based applications. Single sign-on provides a win/win in terms of security and convenience: it reduces password exposure to a single, trusted credential broker while transparently providing access to multiple services without repetitious logins. The use of CAS generally improves the security environment, but there are several CAS configuration, policy, and deployment concerns that should be considered to achieve suitable security.
+CAS是安全软件，可为基于Web的应用程序提供安全的基于Web的单点登录。 单点登录在安全性和便利性方面双赢：仅CAS服务器会接触到密码，减少了密码使用，同时通过信任凭据透明地提供了对多种服务的访问，而无需重复登录。 CAS的使用会提高系统的安全性，当然在CAS的配置，策略和部署的时候也考虑适当的安全性。
 
-<div class="alert alert-info"><strong>报告问题</strong><p>The security team asks that you please <strong>DO NOT</strong> create publicly-viewable issues or posts to discuss what you may consider a security vulnerability. To report issues properly and learn about how responses are produced, please <a href="/cas/developer/Sec-Vuln-Response.html">see this guide</a>.</p></div>
+<div class="alert alert-info"><strong>报告问题</strong><p>安全团队要求您 <strong>不要</strong> 创建公开可见的问题或帖子来讨论您可能认为的安全漏洞。 要正确报告问题并了解如何生成响应，请 <a href="/cas/developer/Sec-Vuln-Response.html">参见本指南</a>。</p></div>
 
 ## 公告
 
@@ -29,10 +29,12 @@ CAS is security software that provides secure Web-based single sign-on to Web-ba
 
 ### 传输安全（https）
 
-All communication with the CAS server MUST occur over a secure channel (i.e. TLS v1). There are two primary justifications for this requirement:
+All communication with the CAS server MUST occur over a secure channel (i.e. TLSv1). There are two primary justifications for this requirement:
 
 1. The authentication process requires transmission of security credentials.
 2. The CAS ticket-granting ticket is a bearer token.
+
+Since the disclosure of either data would allow impersonation attacks, it's vitally important to secure the communication channel between CAS clients and the CAS server.
 
 Practically, it means that all CAS urls must use HTTPS, but it **also** means that all connections from the CAS server to the application must be done using HTTPS:
 
@@ -43,6 +45,8 @@ To see the relevant list of CAS properties and tune this behavior, please [revie
 
 
 ### 与相关系统的连接
+
+CAS commonly requires connections to other systems such as LDAP directories, databases, and caching services. We generally recommend to use secure transport (SSL/TLS, IPSec) to those systems where possible, but there may be compensating controls that make secure transport unnecessary. Private networks and corporate networks with strict access controls are common exceptions, but secure transport is recommended nonetheless. Client certification validation can be another good solution for LDAP to bring sufficient security.
 
 As stated previously, connections to other systems must be secured. But if the CAS server is deployed on several nodes, the same applies to the CAS server itself. If a cache-based ticket registry runs without any security issue on a single CAS server, synchronization can become a security problem when using multiple nodes if the network is not protected.
 
@@ -138,6 +142,8 @@ Single sign-out, or single log-out (SLO), is a feature by which CAS services are
 * Require forced authentication for sensitive services
 * Reduce application session timeouts
 * Reduce SSO session duration
+
+SLO can happen in two ways: from the CAS server (back-channel logout) and/or from the browser (front-channel logout). For back-channel logout, the SLO process relies on the `SimpleHttpClient` class which has a threads pool: its size must be defined to properly treat all the logout requests. Additional not-already-processed logout requests are temporarily stored in a queue before being sent: its size is defined to 20% of the global capacity of the threads pool and can be adjusted. Both sizes are critical settings of the CAS system and their values should never exceed the real capacity of the CAS server.
 
 
 ### 登录限制
