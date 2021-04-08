@@ -10,7 +10,7 @@ category: 概览
 
 CAS升级的总体目标可能是：
 
-1.
+1. 升级是否解决了严重的安全漏洞或烦人的问题？我的CAS部署是否受到该漏洞或错误的影响？
 2. 升级是否提供了对本地用例有用的功能的实现？
 3. 升级是否提供了在我的本地叠加层中实现的功能，例如，通过消除这些本地更改，我可以直接从CAS中受益，并最终得到一个较小的，更易于维护的叠加层？
 
@@ -34,7 +34,7 @@ CAS升级的总体目标可能是：
 
 您所做的更改通常是：
 
-*
+* 身份验证方案和策略（即LDAP，JDBC等）
 * 在CAS属性文件中设置并控制CAS的行为
 * 用户界面更改可能包括CSS和JavaScript
 * 用户属性解析和发布策略
@@ -44,27 +44,27 @@ CAS升级的总体目标可能是：
 
 <img src="http://i.imgur.com/jcdDHWb.jpg" width="160px" height="200px" />
 
-Um, No.
+嗯，不
 
-请确保您有一个单独的开发环境可以进行配置和测试。 不管升级有多小，您都应确保在生产部署之前在您的环境中对它进行了良好的测试。 Evaluate the software dependencies and platform requirements of the new upgrade (i.e.
+请确保您有一个单独的开发环境可以进行配置和测试。 不管升级有多小，您都应确保在生产部署之前在您的环境中对它进行了良好的测试。 评估新升级的软件依赖关系和平台需求(如Java等)，并确保在尝试之前正确安装和配置了所有东西。
 
 ## 清理配置
 
-We recommend that you first start out with a separate clean [CAS overlay](../installation/WAR-Overlay-Installation.html) targeted at the version to which you want to upgrade. This has the advantage of guaranteeing that your new CAS deployment will be functional without any local changes. Build and deploy the clean CAS overlay once to make sure your build/deployment process is functional.
+我们建议您首先针对你要升级到的版本创建一个单独的干净 [CAS覆盖](../installation/WAR-Overlay-Installation.html) 。 这样做的好处是可以保证您的新CAS部署在不进行任何本地更改的情况下正常工作。 进行一次干净的CAS覆盖的构建和部署，以确保构建/部署过程是正常的。
 
 ## 应用更改
 
-Go through your catalog of changes found in your local overlay. Compare and diff those files with their original version. You can find out the delta between two versions via the following ways:
+认真检查在你的本地叠加层中更改。 比较并差分这些文件与原始版本的差异。 你可以通过以下方法对两个版本进行差分:
 
-1. If you have built the clean CAS overlay once, you will automatically get the original version typically in the `target` or `build/libs` directory of CAS overlay. Find the correct file at the correct path and compare.
+1. 如果你已经进行了一次干净的CAS覆盖，你将自动获得原始版本，通常在CAS覆盖的`target`或`build/libs`目录。 在正确的路径中找到正确的文件并进行比较。
 
-2. Go directly to the [project source repository](https://github.com/apereo/cas), find the appropriate branch and compare files.
+2. 直接转到 [项目源存储库](https://github.com/apereo/cas)，找到适当的分支 并比较文件。
 
-Needless to say, you are going to need:
+不用说，您将需要：
 
-1. A decent diff tool, such as [KDiff3](http://kdiff3.sourceforge.net/), [WinDiff](http://winmerge.org), [Beyond Compare](http://www.scootersoftware.com/), etc.
-2. A decent intelligent text editor, such as [Sublime](http://www.sublimetext.com), [Atom](https://atom.io/) or a full blown IDE such as [IntelliJ IDEA](https://www.jetbrains.com/idea/).
+1. 体面的比较工具，如[KDiff3](http://kdiff3.sourceforge.net/), [WinDiff](http://winmerge.org), [Beyond Compare](http://www.scootersoftware.com/)等
+2. 体面智能文本编辑器，如 [Sublime](http://www.sublimetext.com), [Atom](https://atom.io/) 或者一个成熟的IDE，例如 [IntelliJ IDEA](https://www.jetbrains.com/idea/).
 
 ## 文件变更
 
-Remember to document the remaining changes that exist within your local overlay, so that the next time you do the same process, you have a clue as for why the overlay looks the way it does. 
+请记住要记录本地覆盖层中存在的其余更改，以便下次执行相同的过程时，您就有了关于为什么覆盖层看起来是这样的线索。 
