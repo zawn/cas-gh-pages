@@ -1,20 +1,20 @@
 ---
 layout: default
-title: CAS - WAR Overlay Initializr
-category: Installation
+title: CAS - WAR 覆盖初始化
+category: 安装
 ---
 
-# WAR Overlay Initializr
+# WAR 覆盖初始化
 
-[Apereo CAS Initializr][initializr] is a relatively new addition to the Apereo CAS ecosystem that allows you as the deployer to generate CAS WAR Overlay projects on the fly with just what you need to start quickly.
+[Apereo CAS Initializr][initializr]是Apereo CAS生态系统中的一个相对较新的功能，允许作为部署者，在你需要快速启动项目的情况下，迅速生成CAS WAR覆盖项目
 
-To get started with a CAS deployment, adopters typically start with [a plain Gradle-based overlay project](WAR-Overlay-Installation.html) and use that as a baseline for future modifications. While this has been the traditional and recommended approach for many years, it can also be rather challenging for a relatively-novice user new to the ecosystem to download, modify and prepare an overlay project to include all required customizations. Given the overlay project’s static nature, it can also be challenging for project owners and maintainers to keep it up-to-date or offer additional enhancements and automation without affecting the baseline template.
+为了进行CAS部署，部署者之前通常从一个[基于Gradle的覆盖项目](WAR-Overlay-Installation.html)开始，并将其做为基线版本进行功能定制。 While this has been the traditional and recommended approach for many years, it can also be rather challenging for a relatively-novice user new to the ecosystem to download, modify and prepare an overlay project to include all required customizations. Given the overlay project’s static nature, it can also be challenging for project owners and maintainers to keep it up-to-date or offer additional enhancements and automation without affecting the baseline template.
 
 To address such scenarios, the [CAS WAR Overlay Initializr][initializr] offers a fast way to pull in all the dependencies and modules needed for a CAS deployment and provides friendly and programmatic curl-friendly API to generate an overlay structure and required build files.
 
 The underlying framework that handles the project generation task is based on [Spring Initializr](https://github.com/spring-io/initializr).
 
-## Overview
+## 概述
 
 The CAS Initializr can dynamically generate a starting project based on requested modules and dependencies needed for a deployment. This behavior can be tailored to the user’s experience based on that input and the conditions that follow to generate additional references, files, starting templates, and more in the same project to make the deployment process more comfortable.
 
