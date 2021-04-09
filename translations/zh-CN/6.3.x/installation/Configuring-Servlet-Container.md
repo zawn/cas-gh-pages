@@ -31,7 +31,7 @@ Note that CAS itself ships with a number of embedded containers that allow the p
 <div class="alert alert-info"><strong>提示</strong><p>Remember that most if not all aspects of the embedded 
 container can be controlled via the CAS properties. 有关更多信息，请参见 <a href="../configuration/Configuration-Properties.html#embedded-apache-tomcat-container">本指南</a></p></div>
 
-To see the relevant list of CAS properties, please [review this guide](../configuration/Configuration-Properties.html#embedded-container).
+要查看CAS与之相关属性设置，请 [查阅本指南](../configuration/Configuration-Properties.html#embedded-container)。
 
 ### Execution
 
@@ -69,7 +69,7 @@ Note that by default, the embedded container attempts to enable the HTTP2 protoc
 </dependency>
 ```
 
-#### IPv4 Configuration
+#### IPv4配置
 
 In order to force Apache Tomcat to use IPv4, configure the following as a system property for your *run* command:
 
@@ -203,7 +203,7 @@ To disable CAS' own logging, define a `log4j2.xml` under `src/main/resources` an
 
 The above configuration will turn the logging initialization moot, allowing the location and configuration of logs to be defined via CAS settings.
 
-### Async Logging
+### 异步日志记录
 
 CAS logging automatically inserts itself into the runtime application context and will clean up the logging context once the container is instructed to shut down. However, Apache Tomcat in particular seems to by default ignore all JAR files named `log4j*.jar`, which prevents this feature from working. You may need to change the `catalina.properties` and remove `log4j*.jar` from the `jarsToSkip` property. Failure to do so will prevent the container to gracefully shut down and causes logger context threads to hang.
 
@@ -213,6 +213,6 @@ You may need to do something similar on other containers if they skip scanning L
 
 You may also be interested to deploy CAS via [Docker](https://www.docker.com/). 有关更多信息，请参见 [本指南](Docker-Installation.html)
 
-## System Service
+## 系统服务
 
 CAS can be easily started as Unix/Linux services using either `init.d` or `systemd`. To learn more, please [visit this guide](Configuring-Deployment-System-Service.html).
