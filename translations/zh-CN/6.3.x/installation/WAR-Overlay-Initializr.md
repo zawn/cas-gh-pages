@@ -32,7 +32,7 @@ CAS 初始化器可以依据实际部署情况请求所需的模块和依赖，�
 可用使用`CURL`调用[CAS 初始化器][initializr] 生成一个 CAS 覆盖项目。 要访问CAS Initializr，可以使用以下方法。
 
 ### Heroku
-CAS 项目在[Heroku][initializr] 上提供了一个 CAS 初始化器的运行实例。 To get started with this instance, a simple way might be to include the following function in your bash profile:
+CAS 项目在[Heroku][initializr] 上提供了一个 CAS 初始化器的运行实例。 要使用这个实例创建初始项目，一个简单的方法可能是在你的Bash配置文件中包含以下函数:
 
 ```bash
 function getcas(){
@@ -41,27 +41,26 @@ function getcas(){
 }
 ```
 
-This allows you to generate a CAS overlay project using:
+这使您可以使用以下方法生成CAS覆盖项目：
 
 ```bash
 getcas duo,oidc
 ```
 
-…which generates a CAS overlay project prepared with multifactor authentication by [Duo Security](../mfa/DuoSecurity-Authentication.html) and support for [OpenID Connect](OAuth-OpenId-Authentication.html).
+…这里生成一个具有 [Duo Security](../mfa/DuoSecurity-Authentication.html)多因素认证和[OpenID Connect](OAuth-OpenId-Authentication.html)支持的CAS覆盖项目。
 
 <div class="alert alert-info"><strong>备注</strong>
-<p>To help keep the deployment costs down, the Heroku instance has turned on support for 
-rate-limiting requests. Be aware that frequent requests may be throttled for access.</p></div>
+<p>为了降低部署成本，Heroku实例启用了对请求限速。 请注意，访问时可能会限制频繁请求。</p></div>
 
 ### Docker
 
-In case the Initializr is not available on Heroku, you can also run your own Initializr instance via Docker:
+如果在 Heroku 上的初始化器不可用，您也可以通过 Docker 运行您自己的初始实例：
 
 ```bash
 docker run --rm -p 8080:8080 apereo/cas-initializr:${tag}
 ```
 
-The CAS Initializr should become available at `http://localhost:8080` and will respond to API requests using curl. Published images and tags of the CAS Initializr [can be found here](https://hub.docker.com/r/apereo/cas-initializr/tags). Each tagged image corresponds to the CAS server version for which the image is able to produce overlay projects.
+CAS 初始化器应可在 `http://localhost:8080` 上访问，并可以使用 curl 访问API获取响应。 已发布的CAS 初始化器的镜像和标签 [可以在这里找到](https://hub.docker.com/r/apereo/cas-initializr/tags)。 每个镜像标签都于相应的CAS服务器版本对应，该镜像能够生成对应版本的CAS覆盖项目。
 
 ## CAS模块
 
