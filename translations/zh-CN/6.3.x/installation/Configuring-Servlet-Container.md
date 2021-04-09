@@ -22,9 +22,9 @@ category: 安装
 
 此处介绍的所有servlet容器（嵌入式或其他方式）都是生产就绪的。 这意味着CAS开箱即用的有用的默认设置，虽软部分值可能会被覆盖，默认情况下如果有必要，CAS现在将会为您配置从开发到生产的所有东西。 就生产质量而言，使用嵌入式容器与使用外部容器几乎没有区别。
 
-Unless there are specific, technical and reasonable objections, choosing an embedded servlet container is almost always the better choice.
+除非有特定的，技术上的和合理的反对意见，否则选择嵌入式servlet容器几乎总是更好的选择。
 
-## Embedded
+## 嵌入式
 
 Note that CAS itself ships with a number of embedded containers that allow the platform to be self-contained as much as possible. These embedded containers are an integral part of the CAS software, are maintained and updated usually for every release and surely are meant to and can be used in production deployments. You **DO NOT** need to, but can if you want to, configure and deploy to an externally configured container. 
 
