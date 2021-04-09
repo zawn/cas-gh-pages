@@ -1,26 +1,26 @@
 ---
 layout: default
-title: CAS - Overlay Installation
-category: Installation
+title: CAS - 覆盖安装
+category: 安装
 ---
 
-# Servlet Container Configuration
+# Servlet 容器配置
 
-A number of container options are available to deploy CAS. The [WAR Overlay](WAR-Overlay-Installation.html) guide describes how to build and deploy CAS.
+有许多可选的容器可用于部署CAS。 [WAR 覆盖](WAR-Overlay-Installation.html) 指南描述了如何构建和部署CAS。
 
-## How Do I Choose?
+## 我该如何选择？
 
-There are is a wide range of servlet containers and servers on the menu. The selection criteria is outlined below:
+我可以选择的Servlet容器和服务器范围比较广。 选择标准概述如下：
 
-- Choose a technology that you are most familiar with and have the skills and patience to troubleshoot, tune and scale for the win.
-- Choose a technology that does not force your CAS configuration to be tied to any individual servers/nodes in the cluster, as this will present auto-scaling issues and manual effort.
-- Choose a technology that works well with your network and firewall configuration and is performant and reliable enough based on your network topology.
-- Choose a technology that shows promising results under *your expected load*, having run [performance and stress tests](../high_availability/High-Availability-Performance-Testing.html).
-- Choose a technology that does not depend on outside processes, systems and manual work as much as possible, is self-reliant and self contained.
+- 选择您最熟悉的技术，并具有排除故障、调整和扩展以赢得胜利的技能和耐心。
+- 选择一种不会强制将CAS配置绑定到群集中任何单个服务器/节点的技术，因为这会带来自动扩展问题和手动工作。
+- 选择一种适合您的网络和防火墙配置，并且根据您的网络拓扑具有足够性能和可靠性的技术。
+- 选择一种技术，该技术在 *预期负载*下有比较好的结果，并已进行了 [性能和压力测试](../high_availability/High-Availability-Performance-Testing.html)。
+- 选择一种尽可能不依赖外部流程，系统和人工工作，自力更生且自成体系的技术。
 
-## Production Quality
+## 生产质量
 
-All servlet containers presented here, embedded or otherwise, aim to be production ready. This means that CAS ships with useful defaults out of the box that may be overridden, if necessary and by default, CAS configures everything for you from development to production in today’s platforms. In terms of their production quality, there is almost no difference between using an embedded container vs. an external one.
+此处介绍的所有servlet容器（嵌入式或其他方式）都是生产就绪的。 这意味着CAS开箱即用的有用的默认设置，虽软部分值可能会被覆盖，默认情况下如果有必要，CAS现在将会为您配置从开发到生产的所有东西。 就生产质量而言，使用嵌入式容器与使用外部容器几乎没有区别。
 
 Unless there are specific, technical and reasonable objections, choosing an embedded servlet container is almost always the better choice.
 
@@ -28,8 +28,8 @@ Unless there are specific, technical and reasonable objections, choosing an embe
 
 Note that CAS itself ships with a number of embedded containers that allow the platform to be self-contained as much as possible. These embedded containers are an integral part of the CAS software, are maintained and updated usually for every release and surely are meant to and can be used in production deployments. You **DO NOT** need to, but can if you want to, configure and deploy to an externally configured container. 
 
-<div class="alert alert-info"><strong>Do Less</strong><p>Remember that most if not all aspects of the embedded 
-container can be controlled via the CAS properties. See <a href="../configuration/Configuration-Properties.html#embedded-apache-tomcat-container">this guide</a> for more info.</p></div>
+<div class="alert alert-info"><strong>提示</strong><p>Remember that most if not all aspects of the embedded 
+container can be controlled via the CAS properties. 有关更多信息，请参见 <a href="../configuration/Configuration-Properties.html#embedded-apache-tomcat-container">本指南</a></p></div>
 
 To see the relevant list of CAS properties, please [review this guide](../configuration/Configuration-Properties.html#embedded-container).
 
@@ -83,7 +83,7 @@ The same sort of configuration needs to be applied to your `$CATALINA_OPTS` envi
 
 [This guide](https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp) provides several recommendations on how to make web applications and Apache Tomcat as a whole to start up faster.
 
-#### Logging
+#### 日志
 
 The embedded Apache Tomcat container is presently unable to display any log messages below `INFO` even if your CAS log configuration explicitly asks for `DEBUG` or `TRACE` level data. See [this bug report](https://github.com/spring-projects/spring-boot/issues/2923) to learn more.
 
@@ -162,7 +162,7 @@ Note for JBoss, Wildfly and EAP, you may need to add a `jboss-deloyment-structur
 </jboss-deployment-structure>
 ```
 
-### Configuration
+### 配置
 
 Support for external containers is enabled by including the following module in the overlay:
 
@@ -179,7 +179,7 @@ Support for external containers is enabled by including the following module in 
 In the event that an external servlet container is used, you MAY need to make sure it's configured correctly to support asynchronous requests in the event you get related errors and your container requires this. This is typically handled by setting `<async-supported>true</async-supported>` inside the container's main `web.xml`  
 file (i.e. For Apache Tomcat, that would be `$CATALINA_HOME/conf/web.xml`).
 
-### Logging
+### 日志
 
 When using an external container, you may need to ensure that logging configuration file that ships with CAS by default is disabled and turned into a no-op **specially** if the log configuration and location is to be controlled via CAS settings. This is required because initialization of the CAS web applications context inside an external servlet container tends to prematurely initialize the log configuration from classpath before CAS itself has had a chance to control logging via settings.
 
@@ -211,7 +211,7 @@ You may need to do something similar on other containers if they skip scanning L
 
 ## Docker
 
-You may also be interested to deploy CAS via [Docker](https://www.docker.com/). See [this guide](Docker-Installation.html) for more info.
+You may also be interested to deploy CAS via [Docker](https://www.docker.com/). 有关更多信息，请参见 [本指南](Docker-Installation.html)
 
 ## System Service
 
