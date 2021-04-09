@@ -20,21 +20,19 @@ CAS 初始化器可以依据实际部署情况请求所需的模块和依赖，�
 
 当前CAS Initializr主要是一个后端服务和一些API。 然而，可以想象可以在可用的API之上构建现代话的图形界面，来帮助完成项目生成任务，特别是对于项目新手这很有用。
 
-管理和维护一个单独的覆盖项目，并保持它们与 CAS版本同步的可能是一项昂贵的维护任务 CAS Initializr allows the project developers to automate the maintenance task, keep everything in the same repository for faster and more accurate upgrades.
+管理和维护一个单独的覆盖项目，并保持它们与 CAS版本同步的可能是一项昂贵的维护任务 CAS 初始化器允许项目开发者实现维护任务自动化，将所有内容都保持在同一个存储库以便更快、更准确地升级。
 
-<div class="alert alert-info"><strong>Note</strong>
-<p>Remember that the CAS Initializr at this point in time is not able 
-to produce an overlay project for the CAS Management web application. This 
-functionality will be worked out in future releases.</p></div>
+<div class="alert alert-info"><strong>备注</strong>
+<p>请记住，CAS 初始化器在这个当前无法生成<code>CAS管理Web应用程序</code>的覆盖项目。 这个功能将在未来版本中完成。</p></div>
 
-CAS Initializr is used internally by the CAS project itself in a very *Eat What Your Kill* type of way to dynamically generate overlay projects. These generated projects are used as CAS base Docker images published to Docker Hub, and as a baseline for browser/UI tests run by the CAS CI for each relevant feature. CAS Initializr uses itself to test itself!
+在CAS 项目内部，我们使用CAS 初始化器器，*自己自足*的动态生成覆盖项目。 这些生成的项目被用作发布到Docker Hub的Docker映像，并用作CAS CI针对浏览器/用户界面进行测试的基线版本。 CAS 初始化器使用自己测试自己！
 
 ## 项目生成
 
-The [CAS Initializr][initializr] can be invoked using curl to generate a CAS overlay project. To access the CAS Initializr, the following strategies can be used.
+可用使用`CURL`调用[CAS 初始化器][initializr] 生成一个 CAS 覆盖项目。 要访问CAS Initializr，可以使用以下方法。
 
 ### Heroku
-The CAS projects provides a running an instance of the CAS Initializr on [Heroku][initializr]. To get started with this instance, a simple way might be to include the following function in your bash profile:
+CAS 项目在[Heroku][initializr] 上提供了一个 CAS 初始化器的运行实例。 To get started with this instance, a simple way might be to include the following function in your bash profile:
 
 ```bash
 function getcas(){
