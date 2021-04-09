@@ -64,27 +64,27 @@ CAS 初始化器应可在 `http://localhost:8080` 上访问，并可以使用 cu
 
 ## CAS模块
 
-CAS project modules and dependencies that can be requested must be specified by their identifier. To see a full list of all dependencies supported and available by this service, you can invoke the following command:
+可用的CAS项目模块和依赖项在请求的时候必须与他们指定的标识符一致。 要查看此服务支持的所有依赖项的完整列表，可以调用以下命令：
 
 ```bash
 curl https://casinit.herokuapp.com/dependencies
 ```
 
-Typically, dependency identifiers match CAS server dependency/module artifact names without the `cas-server-` prefix. Furthermore, certain dependencies can are assigned aliases as shortcuts to simplify requests. To see the full list of dependencies and their aliases, you may use:
+通常，依赖项标识符与CAS服务器依赖项/模块工件名称匹配，但不包含 `cas-server-`前缀。 此外，可以使用为某些依赖项分配别名作为快捷方式，以简化请求。 要查看依赖项及其别名的完整列表，可以使用：
 
 ```bash
 curl https://casinit.herokuapp.com/actuator/info
 ```
 
-Furthermore, CAS Initializr publishes metadata about its capabilities, that is the available options for all request parameters (dependencies, type, etc.) A client to the service uses that information to initialize the select options and the tree of available dependencies.
+此外，CAS 初始化器会发布有关其功能的元数据，这事所有请求的可用参数项 (依赖，类型等)。 客户端在向服务发送请求时使用该信息来初始化选择选项和可用依赖关系树。
 
-You can grab the metadata on the root endpoint with the appropriate `Accept` header:
+您可以通过适当的 Http `Accept` 消息头来获取这些数据：
 
 ```bash
 curl -H 'Accept: application/json' https://casinit.herokuapp.com
 ```
 
-Or using HTTPie:
+或使用HTTPie：
 
 ```bash
 http https://casinit.herokuapp.com Accept:application/json
