@@ -180,9 +180,9 @@ CAS部署可以部署到多种外部servlet容器。 容器 **必须** 至少支
 
 ### 日志
 
-When using an external container, you may need to ensure that logging configuration file that ships with CAS by default is disabled and turned into a no-op **specially** if the log configuration and location is to be controlled via CAS settings. This is required because initialization of the CAS web applications context inside an external servlet container tends to prematurely initialize the log configuration from classpath before CAS itself has had a chance to control logging via settings.
+使用外部容器时，如果要通过CAS设置控制日志配置和位置，则需要确保CAS中的日志记录配置被设置禁用，即为 **特殊的**no-op。 必须这样做，因为在外部Servlet容器内进行CAS Web应用程序上下文的初始化会在CAS本身有机会通过设置控制日志记录之前，过早地初始化来自类路径的日志配置。
 
-To disable CAS' own logging, define a `log4j2.xml` under `src/main/resources` and put the following content in it:
+要禁用CAS自己的日志记录，请在 `src/main/resources`目录下的定义`log4j2.xml`文件，并放入以下内容：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -200,18 +200,18 @@ To disable CAS' own logging, define a `log4j2.xml` under `src/main/resources` an
 </Configuration>
 ```
 
-The above configuration will turn the logging initialization moot, allowing the location and configuration of logs to be defined via CAS settings.
+上面的配置将使日志记录初始化变得毫无意义，从而允许通过CAS设置来定义日志的位置和配置。
 
 ### 异步日志记录
 
-CAS logging automatically inserts itself into the runtime application context and will clean up the logging context once the container is instructed to shut down. However, Apache Tomcat in particular seems to by default ignore all JAR files named `log4j*.jar`, which prevents this feature from working. You may need to change the `catalina.properties` and remove `log4j*.jar` from the `jarsToSkip` property. Failure to do so will prevent the container to gracefully shut down and causes logger context threads to hang.
+CAS日志自动将其自身插入到运行时应用程序上下文中，并在容器被关闭后清理日志环境。 但是，特别的是，Apache Tomcat似乎默认情况下会忽略所有名为 `log4j *.jar`JAR文件，这将阻止该功能正常工作。 您可能需要更改 `catalina.properties`并从`jarsToSkip` 属性中去除 `log4j*.jar`。 如果不这样，容器将无法正常关闭，并且导致日志上下文线程被挂起。
 
-You may need to do something similar on other containers if they skip scanning Log4j JAR files.
+如果其他容器跳过扫描 Log4j JAR 文件，则可能需要在其他容器上进行类似处理。
 
 ## Docker
 
-You may also be interested to deploy CAS via [Docker](https://www.docker.com/). 有关更多信息，请参见 [本指南](Docker-Installation.html)
+如果你有兴趣通过 [Docker](https://www.docker.com/)部署CAS。 有关更多信息，请参见 [本指南](Docker-Installation.html)
 
 ## 系统服务
 
-CAS can be easily started as Unix/Linux services using either `init.d` or `systemd`. To learn more, please [visit this guide](Configuring-Deployment-System-Service.html).
+CAS 可以很容易地使用 `init.d` 或 `systemd` 作为Unix/Linux 服务启动。 要了解更多信息，请访问 [本指南](Configuring-Deployment-System-Service.html)。
