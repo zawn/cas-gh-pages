@@ -26,7 +26,7 @@ category: 安装
 
 ## 嵌入式
 
-Note that CAS itself ships with a number of embedded containers that allow the platform to be self-contained as much as possible. These embedded containers are an integral part of the CAS software, are maintained and updated usually for every release and surely are meant to and can be used in production deployments. You **DO NOT** need to, but can if you want to, configure and deploy to an externally configured container. 
+请注意，CAS本身附带了许多嵌入式容器，并且尽可能的使这些容器可以独立使用。 这些嵌入式容器是CAS软件不可或缺的一部分，通常每个版本都会对这部分组件进行维护并且跟随版本一起发布，并且肯定可以用于生产部署。 一般情况下你 **不需要**配置和部署到外部容器，当然果你想要部署到外部容器，这些事可以的。 
 
 <div class="alert alert-info"><strong>提示</strong><p>Remember that most if not all aspects of the embedded 
 container can be controlled via the CAS properties. 有关更多信息，请参见 <a href="../configuration/Configuration-Properties.html#embedded-apache-tomcat-container">本指南</a></p></div>
