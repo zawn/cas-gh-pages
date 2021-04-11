@@ -1,12 +1,12 @@
 ---
 layout: default
-title: CAS - OS Service Deployment
-category: Installation
+title: CAS - 部署系统服务
+category: 安装
 ---
 
-# OS Service Deployment
+# CAS - 部署系统服务
 
-CAS can be easily started as Unix/Linux services using either `init.d` or `systemd`. Windows support is also made available via an external daemon. Note that most if not all of the below strategies attempt to run CAS via an embedded servlet container whose configuration is [explained here](Configuring-Servlet-Container.html#embedded).
+CAS 可以很容易地使用 `init.d` 或 `systemd` 作为Unix/Linux 服务启动。 要支持Windows也可以通过外部守护程序进行设置。 Note that most if not all of the below strategies attempt to run CAS via an embedded servlet container whose configuration is [explained here](Configuring-Servlet-Container.html#embedded).
 
 ## `init.d` Service
 
@@ -53,7 +53,7 @@ sudo chattr +i /path/to/cas.war
 
 This will prevent any user, including `root`, from modifying the file.
 
-## `systemd` Service
+## `systemd` 服务
 
 To install CAS as a `systemd` service create a script named `cas.service` using the following example and place it in `/etc/systemd/system` directory:
 
@@ -99,9 +99,9 @@ exec java -jar /path/to/cas.war
 
 Now run `start cas` and your service will start. Upstart offers many job configuration options and you can find [most of them here](http://upstart.ubuntu.com/cookbook/).
 
-## Windows Service
+## Windows 服务
 
-### Windows Service Wrapper
+### Windows服务包装器
 
 CAS may be started as Windows service using [winsw](https://github.com/kohsuke/winsw).
 
@@ -130,6 +130,6 @@ Similarly, you may use `uninstall`, `start`, `stop`, etc.
 
 Refer to [this example](https://github.com/snicoll-scratches/spring-boot-daemon) to learn more.
 
-### Others
+### 其他
 
 CAS web applications may also be started as Windows service using [Procrun](http://commons.apache.org/proper/commons-daemon/procrun.html) of the [Apache Commons Daemon project](http://commons.apache.org/daemon/index.html). Procrun is a set of applications that allow Windows users to wrap Java applications as Windows services. Such a service may be set to start automatically when the machine boots and will continue to run without any user being logged on.
