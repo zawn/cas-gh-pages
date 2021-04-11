@@ -1,40 +1,38 @@
 ---
 layout: default
-title: CAS - WAR Overlay Initializr
-category: Installation
+title: CAS - WAR 覆盖初始化
+category: 安装
 ---
 
-# WAR Overlay Initializr
+# WAR 覆盖初始化
 
-[Apereo CAS Initializr][initializr] is a relatively new addition to the Apereo CAS ecosystem that allows you as the deployer to generate CAS WAR Overlay projects on the fly with just what you need to start quickly.
+[Apereo CAS Initializr][initializr]是Apereo CAS生态系统中的一个相对较新的功能，允许作为部署者，在你需要快速启动项目的情况下，迅速生成CAS WAR覆盖项目
 
-To get started with a CAS deployment, adopters typically start with [a plain Gradle-based overlay project](WAR-Overlay-Installation.html) and use that as a baseline for future modifications. While this has been the traditional and recommended approach for many years, it can also be rather challenging for a relatively-novice user new to the ecosystem to download, modify and prepare an overlay project to include all required customizations. Given the overlay project’s static nature, it can also be challenging for project owners and maintainers to keep it up-to-date or offer additional enhancements and automation without affecting the baseline template.
+为了进行CAS部署，部署者之前通常从一个[基于Gradle的覆盖项目](WAR-Overlay-Installation.html)开始，并将其做为基线版本进行功能定制。 尽管多年来一直是传统的推荐使用WAR覆盖，但对于刚接触CAS的新手而言，下载、修改、准备覆盖项目以及加入所有需要的自定义项也是一个挑战。 考虑到覆盖项目的静态性质，对于项目的所有者和维护者来说，如何在快速的更新项目或提供额外附加功能的时候不影响基线版本模板也可能是一个挑战。
 
-To address such scenarios, the [CAS WAR Overlay Initializr][initializr] offers a fast way to pull in all the dependencies and modules needed for a CAS deployment and provides friendly and programmatic curl-friendly API to generate an overlay structure and required build files.
+为了解决这种情况， [CAS WAR Overlay Initializr][initializr] 提供了一种快速的方法来拉取CAS部署所需的所有依赖项和模块，同时提供了友好且可编程的curl-friendly API来生成覆盖结构和所需的构建文件。
 
-The underlying framework that handles the project generation task is based on [Spring Initializr](https://github.com/spring-io/initializr).
+处理项目生成任务的基础框架基于 [Spring Initializr](https://github.com/spring-io/initializr)
 
-## Overview
+## 概述
 
-The CAS Initializr can dynamically generate a starting project based on requested modules and dependencies needed for a deployment. This behavior can be tailored to the user’s experience based on that input and the conditions that follow to generate additional references, files, starting templates, and more in the same project to make the deployment process more comfortable.
+CAS 初始化器可以依据实际部署情况请求所需的模块和依赖，动态地生成一个初始项目。 该功能可以由用户按照自己的需求进行定制，通过用户输入的条件来生成初始模板、附加引用和文件、以及其他，这使得部署过程更加人性化。
 
-CAS Initializr at this point is mainly a backend service and a few APIs. However, one could imagine that a graphical and modern user interface could be built on top of available APIs to help with the project generation task, especially for project newcomers.
+当前CAS Initializr主要是一个后端服务和一些API。 然而，可以想象可以在可用的API之上构建现代话的图形界面，来帮助完成项目生成任务，特别是对于项目新手这很有用。
 
-Managing and maintaining a separate overlay projects and keeping them in sync with various CAS versions can be a costly maintenance task. CAS Initializr allows the project developers to automate the maintenance task, keep everything in the same repository for faster and more accurate upgrades.
+管理和维护一个单独的覆盖项目，并保持它们与 CAS版本同步的可能是一项昂贵的维护任务 CAS 初始化器允许项目开发者实现维护任务自动化，将所有内容都保持在同一个存储库以便更快、更准确地升级。
 
-<div class="alert alert-info"><strong>Note</strong>
-<p>Remember that the CAS Initializr at this point in time is not able 
-to produce an overlay project for the CAS Management web application. This 
-functionality will be worked out in future releases.</p></div>
+<div class="alert alert-info"><strong>备注</strong>
+<p>请记住，CAS 初始化器在这个当前无法生成<code>CAS管理Web应用程序</code>的覆盖项目。 这个功能将在未来版本中完成。</p></div>
 
-CAS Initializr is used internally by the CAS project itself in a very *Eat What Your Kill* type of way to dynamically generate overlay projects. These generated projects are used as CAS base Docker images published to Docker Hub, and as a baseline for browser/UI tests run by the CAS CI for each relevant feature. CAS Initializr uses itself to test itself!
+在CAS 项目内部，我们使用CAS 初始化器器，*自己自足*的动态生成覆盖项目。 这些生成的项目被用作发布到Docker Hub的Docker映像，并用作CAS CI针对浏览器/用户界面进行测试的基线版本。 CAS 初始化器使用自己测试自己！
 
-## Project Generation
+## 项目生成
 
-The [CAS Initializr][initializr] can be invoked using curl to generate a CAS overlay project. To access the CAS Initializr, the following strategies can be used.
+可用使用`CURL`调用[CAS 初始化器][initializr] 生成一个 CAS 覆盖项目。 要访问CAS Initializr，可以使用以下方法。
 
 ### Heroku
-The CAS projects provides a running an instance of the CAS Initializr on [Heroku][initializr]. To get started with this instance, a simple way might be to include the following function in your bash profile:
+CAS 项目在[Heroku][initializr] 上提供了一个 CAS 初始化器的运行实例。 要使用这个实例创建初始项目，一个简单的方法可能是在你的Bash配置文件中包含以下函数:
 
 ```bash
 function getcas(){
@@ -43,51 +41,50 @@ function getcas(){
 }
 ```
 
-This allows you to generate a CAS overlay project using:
+这使您可以使用以下方法生成CAS覆盖项目：
 
 ```bash
 getcas duo,oidc
 ```
 
-…which generates a CAS overlay project prepared with multifactor authentication by [Duo Security](../mfa/DuoSecurity-Authentication.html) and support for [OpenID Connect](OAuth-OpenId-Authentication.html).
+…这里生成一个具有 [Duo Security](../mfa/DuoSecurity-Authentication.html)多因素认证和[OpenID Connect](OAuth-OpenId-Authentication.html)支持的CAS覆盖项目。
 
-<div class="alert alert-info"><strong>Note</strong>
-<p>To help keep the deployment costs down, the Heroku instance has turned on support for 
-rate-limiting requests. Be aware that frequent requests may be throttled for access.</p></div>
+<div class="alert alert-info"><strong>备注</strong>
+<p>为了降低部署成本，Heroku实例启用了对请求限速。 请注意，访问时可能会限制频繁请求。</p></div>
 
 ### Docker
 
-In case the Initializr is not available on Heroku, you can also run your own Initializr instance via Docker:
+如果在 Heroku 上的初始化器不可用，您也可以通过 Docker 运行您自己的初始实例：
 
 ```bash
 docker run --rm -p 8080:8080 apereo/cas-initializr:${tag}
 ```
 
-The CAS Initializr should become available at `http://localhost:8080` and will respond to API requests using curl. Published images and tags of the CAS Initializr [can be found here](https://hub.docker.com/r/apereo/cas-initializr/tags). Each tagged image corresponds to the CAS server version for which the image is able to produce overlay projects.
+CAS 初始化器应可在 `http://localhost:8080` 上访问，并可以使用 curl 访问API获取响应。 已发布的CAS 初始化器的镜像和标签 [可以在这里找到](https://hub.docker.com/r/apereo/cas-initializr/tags)。 每个镜像标签都于相应的CAS服务器版本对应，该镜像能够生成对应版本的CAS覆盖项目。
 
-## CAS Modules
+## CAS模块
 
-CAS project modules and dependencies that can be requested must be specified by their identifier. To see a full list of all dependencies supported and available by this service, you can invoke the following command:
+可用的CAS项目模块和依赖项在请求的时候必须与他们指定的标识符一致。 要查看此服务支持的所有依赖项的完整列表，可以调用以下命令：
 
 ```bash
 curl https://casinit.herokuapp.com/dependencies
 ```
 
-Typically, dependency identifiers match CAS server dependency/module artifact names without the `cas-server-` prefix. Furthermore, certain dependencies can are assigned aliases as shortcuts to simplify requests. To see the full list of dependencies and their aliases, you may use:
+通常，依赖项标识符与CAS服务器依赖项/模块工件名称匹配，但不包含 `cas-server-`前缀。 此外，可以使用为某些依赖项分配别名作为快捷方式，以简化请求。 要查看依赖项及其别名的完整列表，可以使用：
 
 ```bash
 curl https://casinit.herokuapp.com/actuator/info
 ```
 
-Furthermore, CAS Initializr publishes metadata about its capabilities, that is the available options for all request parameters (dependencies, type, etc.) A client to the service uses that information to initialize the select options and the tree of available dependencies.
+此外，CAS 初始化器会发布有关其功能的元数据，这事所有请求的可用参数项 (依赖，类型等)。 客户端在向服务发送请求时使用该信息来初始化选择选项和可用依赖关系树。
 
-You can grab the metadata on the root endpoint with the appropriate `Accept` header:
+您可以通过适当的 Http `Accept` 消息头来获取这些数据：
 
 ```bash
 curl -H 'Accept: application/json' https://casinit.herokuapp.com
 ```
 
-Or using HTTPie:
+或使用HTTPie：
 
 ```bash
 http https://casinit.herokuapp.com Accept:application/json

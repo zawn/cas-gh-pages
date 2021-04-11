@@ -1,54 +1,54 @@
 ---
 layout: default
-title: CAS - Installation Requirements
-category: Installation
+title: CAS-安装要求
+category: 安装
 ---
 
-# Installation Requirements
+# 安装要求
 
-Depending on choice of configuration components, there may be additional requirements such as LDAP directory, database, and caching infrastructure. In most cases, however, requirements should be self evident to deployers who choose components with clear hardware and software dependencies. In any case where additional requirements are not obvious, the discussion of component configuration should mention system, software, hardware, and other requirements.
+根据配置组件的选择，可能需要额外的需求，例如LDAP目录，数据库和缓存基础设施。 在大多数情况下，对于具有明确的硬件和软件依赖性的组件部署者来说，要求应该是显而易见的。 在任何情况下，附加要求都为并不明显，有关组件配置的讨论应提及系统，软件，硬件和其他要求。
 
 ## Java
 
-CAS at its heart is a Java-based web application. Prior to deployment, you will need to have [JDK](https://openjdk.java.net/projects/jdk/11/) `11` installed.
+CAS的核心是基于Java的Web应用程序。 在部署之前，您需要先安装 [JDK](https://openjdk.java.net/projects/jdk/11/) `11`。
 
-<div class="alert alert-danger"><strong>Oracle JDK License</strong><p>
-Oracle has updated the license terms on which Oracle JDK is offered. The new Oracle Technology Network License Agreement for Oracle Java SE is substantially different from the licenses under which previous versions of the JDK were offered. <b>Please review</b> the new terms carefully before downloading and using this product.</p></div>
+<div class="alert alert-danger"><strong>Oracle JDK许可证</strong><p>
+Oracle更新了Oracle JDK的许可证条款。 新的Oracle Technology Network License Agreement for Oracle Java SE 与以前提供JDK 版本的许可证有很大不同。 <b>请在下载和使用此产品之前仔细审阅</b> 新条款。</p></div>
 
-The key part of the license is as follows:
+许可证的关键部分如下：
 
-> You may not: use the Programs for any data processing or any commercial, production, or internal business purposes other than developing, testing, prototyping, and demonstrating your Application.
+> 您不得：将本程序用于开发，测试，制作原型和演示应用程序之外的任何数据处理或任何商业，生产或内部业务目的。
 
-Do **NOT** download or use the Oracle JDK unless you intend to pay for it. **Use an OpenJDK build instead.**
+除非您打算为此付费，否则请执行 **NOT** **改用OpenJDK构建。**
 
-## Servlet Containers
+## Servlet容器
 
-There is no officially supported servlet container for CAS, but [Apache Tomcat](http://tomcat.apache.org/) is the most commonly used. Support for a particular servlet container depends on the expertise of community members.
+CAS没有官方指定的servlet容器，但 [Apache Tomcat](http://tomcat.apache.org/) 是最常用的。 对特定servlet容器的支持取决于社区成员的专业知识。
 
-See [this guide](../installation/Configuring-Servlet-Container.html) for more info.
+有关更多信息，请参见 [本指南](../installation/Configuring-Servlet-Container.html)
 
-## Build Tools
+## 构建工具
 
-WAR overlays are [provided](../installation/WAR-Overlay-Installation.html) to allow for a straightforward and flexible deployment solution. While it admittedly requires a high up-front cost in learning, it reaps numerous benefits in the long run. 
+WAR叠加为部署者 [提供](../installation/WAR-Overlay-Installation.html)了以简单，灵活的部署解决方案。 尽管它也需要很高的前期学习成本，但从长远来看，它可以带来许多好处。 
 
-<div class="alert alert-info"><strong>Do Less</strong><p>
-You <b>DO NOT</b> need to have Gradle installed prior to the installation. It is provided to you automatically.
+<div class="alert alert-info"><strong>提示</strong><p>
+您 <b>不需要</b> 在事先Gradle。 它是自动提供给您的。
 </p></div>
 
-## Git (Optional)
+## Git（可选）
 
-While not strictly a requirement, it's HIGHLY recommended that you have [Git](https://git-scm.com/downloads) installed for your CAS deployment, and manage all CAS artifacts, configuration files, build scripts and setting inside a source control repository.
+虽然严格来说不是一项要求，但它建议您安装 [Git](https://git-scm.com/downloads) 来进行您的 CAS 部署。并在源码仓库中管理所有 CAS 组件、配置、 构建脚本和设置。
 
-## OS
+## 操作系统
 
-No particular preference on the operating system, though Linux-based installs are typically more common than Windows.
+尽管基于Linux的安装通常比Windows更普遍，但对操作系统没有特别的偏好。
 
-## Internet Connectivity
+## 互联网连接
 
-Internet connectivity is generally required for the build phase of any Maven/Gradle based project, including the recommended WAR overlays used to install CAS. The build process resolves dependencies by searching online repositories containing artifacts (jar files in most cases) that are downloaded and installed locally.
+任何基于 Maven/Gradle 的项目的构建阶段，包括 推荐用于安装 CAS 的 WAR 叠加，一般都需要互联网连接。 构建过程会解析项目的依赖项（大部分情况下是JAR包）在远程仓库中进行检索后下载和安装到本地。
 
-## Hardware
+## 硬件
 
-Anecdotal community evidence seems to suggest that CAS deployments would perform well on a dual-core 3.00Ghz processor with 8GB of memory, at a minimum. Enough disk space (preferably SSD) is also needed to house CAS-generated logs, if logs are kept on the server itself.
+社区里的经验表明，CAS部署平台应最低双核3.00Ghz和至少8GB的内存。 如果日志保存在服务器本身上，则还需要足够的磁盘空间(最好是SSD) 来容纳CAS生成的日志。
 
-Remember that the above requirements are *suggestions*. You may get by perfectly fine with more or less, depending on your deployment and request volume. Start with the bare minimum and be prepared to adjust and strengthen capacity on demand if needed.
+请记住，上述要求是 *建议*。 满足你要求的配置可能或多或少，具体还要取决于您的部署和请求数量。 从最低限度开始，并准备根据需要调整和增强容量。

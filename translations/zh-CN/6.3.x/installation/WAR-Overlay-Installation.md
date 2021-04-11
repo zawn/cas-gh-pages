@@ -1,102 +1,97 @@
 ---
 layout: default
-title: CAS - Overlay Installation
-category: Installation
+title: CAS - 覆盖安装
+category: 安装
 ---
 
-# WAR Overlay Installation
+# WAR 覆盖安装
 
-CAS installation is a fundamentally source-oriented process, and we recommend a WAR overlay (1) project to organize customizations such as component configuration and UI design. The output of a WAR overlay build is a `cas.war` file that can be deployed to a servlet container like [Apache Tomcat](Configuring-Servlet-Container.html).
+CAS安装是从根本上来说是面向源代码的过程，我们建议您使用WAR overlay（1）项目来组织自定义设置，例如组件配置和UI设计。 WAR覆盖最终会构建输出是一个 `cas.war` 文件，可以将其部署到servlet容器（如 [Apache Tomcat](Configuring-Servlet-Container.html)。
 
-## Requirements
+## 安装要求
 
-[See this guide](../planning/Installation-Requirements.html) to learn more.
+[请参阅本指南](../planning/Installation-Requirements.html) 了解更多信息。
 
-## What is a WAR Overlay?
+## 什么是WAR覆盖
 
-Overlays are a strategy to combat repetitive code and/or resources. Rather than downloading the CAS codebase and building from source, overlays allow you to download a pre-built vanilla CAS web application server provided by the project itself and override/insert specific behavior into it. At build time, the build installation process will attempt to download the provided binary artifact first. Then the tool will locate your configuration files and settings made available inside the same project directory and will merge those into the downloaded artifact in order to produce one wholesome archive (i.e. `cas.war`) . Overridden artifacts may include resources, java classes, images, CSS and javascript files. In order for the merge process to successfully execute, the location and names of the overridden artifacts locally must **EXACTLY** match that of those provided by the project inside the originally downloaded archive. Java code in the overlay project's `src/main/java` folder and resources in `src/main/resources` will end up in the `WEB-INF\classes` folder of cas.war and they will be loaded by the classloader instead of resources with the same names in jar files inside `WEB-INF\lib`.
+覆盖是一种对抗重复代码和/或资源的策略。 与下载CAS代码库并从源代码进行构建不同，WAR叠加允许您下载项目本身提供的预构建的普通CAS web应用程序服务器，并覆盖/插入特定的行为。 在构建时，构建安装过程将首先尝试下载提供的二进制工件。 然后，该工具将在相同的项目目录中找到您的配置文件和可用的设置，并将它们合并到下载的工件中，以便生成一个完整的存档(即`cas.war`)。 覆盖的工件可能包括资源、java类、图像、CSS和javascript文件。 为了使合并进程成功执行，被覆盖的工件的位置和名称必须与该项目提供原始下载的存档位置和名称进行 **精确地** 的匹配，。 在覆盖层项目中的Java代码目录 `src/main/java` 目录和资源文件目录`src/main/resources` 最终将会出现在cas.war的`WEB-INF\classes` 目录中，它们将被类加载器加载，并替换jar文件中`WEB-INF\lib`下的同名资源。
 
-It goes without saying that while up-front ramp-up time could be slightly complicated, there are significant advantages to this approach:
+毋庸置疑，尽管前期准备时间可能会有些复杂，但这种方法有很多优势：
 
-1. There is no need to download/build from the source.
-2. Upgrades are tremendously easier in most cases by simply adjusting the build script to download the newer CAS release.
-3. Rather than hosting the entire software source code, as the deployer you **ONLY** keep your own local customizations which makes change tracking much easier.
-4. Tracking changes inside a source control repository is very lightweight, again simply because only relevant changes (and not the entire software) is managed.
+1. 无需从源代码下载/构建。
+2. 在大多数情况下，只需调整构建脚本以下载较新的CAS版本，升级就变得非常容易。
+3. 不需要托管整个软件源代码，作为部署者，您 **仅** 将保留自己的本地自定义项，这使更改跟踪变得更加容易。
+4. 同样，仅因为仅管理相关的更改（而不是整个软件），所以用于跟踪源代码并进行版本控制的代码仓库将非常轻巧。
 
-### Managing Overlays
+### 管理覆盖
 
-Most if not all aspects of CAS can be controlled by adding, removing, or modifying files in the overlay; it's also possible and indeed common to customize the behavior of CAS by adding third-party components that implement CAS APIs as Java source files or dependency references.
+CAS的大部分（如果不是全部）方面都可以通过添加，删除或修改覆盖层中的文件来控制；通过添加第三方组件如实现CAS APIs的Java源文件或依赖项来改变 CAS的行为是可能的，而且的确是常见的。
 
-The process of working with an overlay can be summarized in the following steps:
+覆盖的处理过程可以归纳为以下步骤：
 
-- Start with and build the provided basic vanilla build/deployment.
-- Identify the artifacts from the produced build that need changes. These artifacts are generally produced by the build in the `build` directory for Gradle. Use the gradle `explodeWar` task.
-- Copy the identified artifacts from the identified above directories over to the `src/main/resources` directory.
-1. Create the `src/main/resources` directories, if they don't already exist.
-2. Copied paths and file names **MUST EXACTLY MATCH** their build counterparts, or the change won't take effect. See the table below to understand how to map folders and files from the build to `src`.
-- After changes, rebuild and repeat the process as many times as possible.
-- Double check your changes inside the built binary artifact to make sure the overlay process is working.
+- 从提供的基础原版组件开始构建/部署。
+- 从构建生成的组件中识别需要更改的工件。 这些工件通常由 Gradel构建任务生成在`build` 目录中。 使用gradle `explodeWar` 任务。
+- 将已标识的组件从上面标识的目录复制到 `src/main/resources` 目录。
+1. 创建 `src/main/resources` 目录，如果它们不存在。
+2. 已复制的路径和文件名 **必须是他们的构建对应方** ，否则更改不会生效。 请参阅下表的表格以了解如何将文件夹和文件从内部版本映射到 `src`。
+- 更改后，请重新构建并重复该过程，以尽完成你需要的定制。
+- 在构建的二进制工件中仔细检查您的更改，以确保覆盖过程正常完成。
 
-<div class="alert alert-warning"><strong>Be Exact</strong><p>Do NOT copy everything produced by the build. Attempt to keep changes and customizations to a 
-minimum and only grab what you actually need. Make sure the deployment environment is kept clean and precise, or you incur the risk of terrible upgrade issues and painful headaches.</p></div>
+<div class="alert alert-warning"><strong>准确无误</strong><p>不要复制构建产生的所有内容。 尽量减少更改和定制，并且抓住你的实际需求。 确保部署环境保持整洁精确，否则将带来可怕的升级问题和痛苦的麻烦。</p></div>
 
-## CAS WAR Overlays
+## CAS WAR 覆盖
 
-CAS WAR overlay projects described below are provided for reference and study.
+下文介绍的CAS WAR覆盖项目供参考和研究。
 
-### CAS Overlay Initializr
+### CAS覆盖初始化
 
-Apereo CAS Initializr is a relatively new addition to the Apereo CAS ecosystem that allows you as the deployer to generate CAS WAR Overlay projects on the fly with just what you need to start quickly.
+Apereo CAS Initializr是Apereo CAS生态系统中的一个相对较新的功能，允许你作为部署者，在你需要快速启动的情况下，快速生成CAS WAR覆盖项目
 
-To learn more about the initializr, please [review this guide](WAR-Overlay-Initializr.html).
+要了解更多关于`initializr`的信息，请[查看本指南](WAR-Overlay-Initializr.html)。
 
-### CAS Overlay Template
+### CAS覆盖模板
 
-You can download or clone the repositories below to get started with a CAS overlay template.
+您可以下载或克隆以下存储库，以开始使用CAS覆盖模板。
 
-<div class="alert alert-info"><strong>Review Branch!</strong><p>The below repositories point you towards their <code>master</code> branch.
-You should always make sure the branch you are on matches the version of CAS you wish to configure and deploy. The <code>master</code>
-branch typically points to the latest stable release of the CAS server. Check the build configuration and if inappropriate,
-use <code>git branch -a</code> to see available branches, and then <code>git checkout [branch-name]</code> to switch if necessary.</p></div>
+<div class="alert alert-info"><strong>请注意你使用的分支！</strong><p>下面的代码仓库将您引向其 <code>master</code> 分支。
+您应该始终确保您所在的分支与您要配置和部署的CAS版本匹配。 <code>master</code>分支通常与CAS服务器的最新稳定版本相匹配。 检查你的构建配置，如果发现不恰当的使用了错误的分支，请使用<code>git branch -a</code> 查看可用的分支，然后使用 <code>git checkout [branch-name]</code> 切换。</p></div>
 
-| Project                                                           | Build Directory           | Source Directory     |
+| 项目                                                                | 构建目录                      | 源目录                  |
 | ----------------------------------------------------------------- | ------------------------- | -------------------- |
 | [CAS WAR Overlay](https://github.com/apereo/cas-overlay-template) | `cas/build/cas-resources` | `src/main/resources` |
 
-The `cas/build/cas-resources` files are unzipped from `cas.war!WEB-INF\lib\cas-server-webapp-resources-<version>.jar` via `gradle explodeWar` in the overlay.
+其中在覆盖项目中的`cas/build/cas-resources`文件是由`gradle explodeWar`任务从`cas.war!WEB-INF\lib\cas-server-webapp-resources-<version>.jar`中解压而来。
 
-To construct the overlay project, you need to copy directories and files *that you need to customize* in the build directory over to the source directory.
+为了组织你的覆盖项目，你需要从构建目录复制*你需要定制*的文件和目录到源代码目录。
 
-The WAR overlay also provides additional tasks to explode the binary artifact first before re-assembling it again. You may need to do that step manually yourself to learn what files/directories need to be copied over to the source directory.
+WAR叠加层还提供了其他任务，以便在重新组装之前先展开二进制工件。 具体要将那些文件或者目录拷贝到你的源代码目录你可能需要自己手动操作。
 
-Note: Do **NOT** ever make changes in the above-noted build directory. The changeset will be cleaned out and set back to defaults every time you do a build. Put overlaid components inside the source directory and/or other instructed locations to avoid surprises.
+注意：请**不要**在上面提到的构建目录中进行任何修改。 每次构建时，构建目录的变更将被清除，并将恢复为默认值。 将覆盖组件放在源目录和/或其他指定位置，以避免修改丢失。
 
-## CAS Configuration Server Overlay
+## CAS配置服务器覆盖
 
-See this [Maven WAR overlay](https://github.com/apereo/cas-configserver-overlay) for more details.
+有关更多详细信息， [Maven WAR覆盖](https://github.com/apereo/cas-configserver-overlay)
 
-To learn more about the configuration server, please [review this guide](../configuration/Configuration-Server-Management.html).
+要了解有关配置服务器的更多信息，请 [本指南](../configuration/Configuration-Server-Management.html)。
 
-## Dockerized Deployment
+## 在Docker中部署
 
-See [this guide](Docker-Installation.html) for more info.
+有关更多信息，请参见 [本指南](Docker-Installation.html)
 
-## Servlet Container
+## Servlet容器
 
-CAS can be deployed to a number of servlet containers. See [this guide](Configuring-Servlet-Container.html) for more info.
+CAS可以部署到许多servlet容器中。 有关更多信息，请参见 [本指南](Configuring-Servlet-Container.html)
 
-## Custom and Third-Party Source
+## 自定义和第三方源代码
 
-It is common to customize or extend the functionality of CAS by developing Java components that implement CAS APIs or to include third-party source by dependency references. Including third-party source is trivial; simply include the relevant dependency in the overlay `build.gradle` file. 
+通常，通过开发实现CAS API的Java组件来定制或扩展CAS的功能，或者通过依赖引入第三方源代码。 引入第三方源码通常是比较容易的；只需在`build.gradle` 文件中添加相关的依赖项即可。 
 
-<div class="alert alert-warning"><strong>Stop Coding</strong><p>
-Overlaying or modifying CAS internal components and classes, <i>unless ABSOLUTELY required</i>, should be a last resort and is generally 
-considered a misguided malpractice. Where possible, avoid making custom changes to carry the maintenance burden solely on your own. 
-Avoid carrying . You will risk the stability and security of your deployment. If the enhancement 
-case is attractive or modest, contribute back to the project. Stop writing code, or rite it where it belongs.
+<div class="alert alert-warning"><strong>停止编码</strong><p>
+覆盖或修改CAS 内部组件和类通常被认为是错误的做法， 除非<i>绝对</i>需要， 否则不要这样做。 尽可能避免进行自定义更改，这些修改需要你后期独自进行维护。 
+缺少维护的修改， 将使您的部署存在稳定和安全性的风险。 如果你的修改是普适或者适当的，请把它回馈到本项目中来。 停止编写代码，或将其归类。
 </p></div>
 
-In order to include custom Java source, it should be included under a `src/main/java` directory in the overlay project source tree.
+应该在覆盖项目的`src/main/java` 目录下存放自定义Java源代码。
 
     ├── src
     │   ├── main
@@ -121,12 +116,12 @@ In order to include custom Java source, it should be included under a `src/main/
     │   │   │                       └── util
     │   │   │                           ├── ProtocolParameterAuthority.java
 
-## Dependency Management
+## 依赖管理
 
-Each release of CAS provides a curated list of dependencies it supports. In practice, you do not need to provide a version for any of these dependencies in your build configuration as the CAS distribution is managing that for you. When you upgrade CAS itself, these dependencies will be upgraded as well in a consistent way.
+每个CAS版本都有自己的特定依赖列表。 实践中， 您不需要在构建配置中为这些依赖指定具体的版本，因为CAS 会自动管理这些依赖关系。 当您升级CAS时，这些依赖项也将以一致的方式进行升级。
 
-The curated list of dependencies contains a refined list of third party libraries. The list is available as a standard Bills of Materials (BOM). Not everyone likes inheriting from the BOM. You may have your own corporate standard parent that you need to use, or you may just prefer to explicitly declare all your configuration.
+这些依赖列表中包含选定的第三方库列表。 该列表作为标准物料清单（BOM）提供。 并非每个人都喜欢从BOM表继承。 您可能需要使用自己的公司标准父级，也可能只想明确声明所有配置。
 
-To take advantage of the CAS BOM at `org.apereo.cas:cas-server-support-bom`, via Gradle, please [use this guide](https://plugins.gradle.org/plugin/io.spring.dependency-management) and configure the Gradle build accordingly.
+在使用Gradle的情况，如果你需要了解CAS BOM （`org.apereo.cas:cas-server-support-bom`）的高级用法，请 [使用本指南](https://plugins.gradle.org/plugin/io.spring.dependency-management)，并对Gradle构建进行相应的配置。
 
 <sub>(1) [WAR Overlays](http://maven.apache.org/plugins/maven-war-plugin/overlays.html)</sub>
