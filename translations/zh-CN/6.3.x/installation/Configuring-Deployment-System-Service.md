@@ -33,13 +33,13 @@ update-rc.d myapp defaults <priority>
 
 ### Security
 
-When executed as `root`, as is the case when `root` is being used to start an `init.d` service, the CAS default executable script will run the web application as the user which owns the web application file. You should **never** run CAS as `root` so the web application file should never be owned by `root`. Instead, create a specific user to run CAS and use `chown` to make it the owner of the file. For example:
+当以`root`执行时，即使用`root`用户去启动`init.d`服务时，CAS默认以拥有当前web程序文件的用户身份去运行web程序的可执行脚本。 您**永远** 不应该以 `root` 身份运行CAS，因此更不应该让`root`作为Web应用程序文件的拥有者。 而是应该创建一个特定用户以运行CAS，并使用 `chown` 使其成为文件的所有者。 例如：
 
 ```bash
 chown bootapp:bootapp /path/to/cas.war
 ```
 
-You may also take steps to prevent the modification of the CAS web application file. Firstly, configure its permissions so that it cannot be written and can only be read or executed by its owner:
+您还可以采取措施来防止修改CAS Web应用程序文件。 首先，将权限配置为使其无法写入，并且只能由其所有者读取或执行：
 
 ```bash
 chmod 500 /path/to/cas.war
