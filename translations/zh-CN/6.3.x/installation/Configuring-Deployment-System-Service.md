@@ -6,26 +6,26 @@ category: 安装
 
 # CAS - 部署系统服务
 
-CAS 可以很容易地使用 `init.d` 或 `systemd` 作为Unix/Linux 服务启动。 要支持Windows也可以通过外部守护程序进行设置。 Note that most if not all of the below strategies attempt to run CAS via an embedded servlet container whose configuration is [explained here](Configuring-Servlet-Container.html#embedded).
+CAS 可以很容易地使用 `init.d` 或 `systemd` 作为Unix/Linux 服务启动。 要支持Windows也可以通过外部守护程序进行设置。 请注意，[在此说明一下](Configuring-Servlet-Container.html#embedded)，以下这些配置大多数是针对使用嵌入式容器运行CAS的。
 
-## `init.d` Service
+## `init.d` 服务
 
-If CAS is built and run as [a fully executable web application](Configuring-Servlet-Container.html), then it can be used as an `init.d` service. Simply `symlink` the web application file to `init.d` to support the standard `start`, `stop`, `restart` and `status` commands.
+如果CAS被构建并并作为 [一个完全可执行的web应用程序](Configuring-Servlet-Container.html)运行为，那么它可以被用作 `init.d` 服务。 简单地使用 `符号链接` 将Web应用程序文件链接到 `init.d`以支持标准的 `start`, `stop`, `restart` and `status` 的命令。
 
-The configuration built into CAS allows it to interact with the OS system configuration as such:
+CAS中内置的配置允许它与OS系统配置进行交互，如下所示：
 
-- Start the service as the user that owns the jar file
-- Track CAS web applications' PID using `/var/run/cas/cas.pid`
-- Write console logs to `/var/log/cas.log`
+- 以拥有jar文件的用户身份启动服务
+- 使用 `/var/run/cas/cas.pid` 追踪CAS web 应用程序的 PID
+- 将控制台日志写入 `/var/log/cas.log`
 
-To install CAS as an `init.d` service simply create a symlink:
+要将CAS作为 `init.d` 服务安装，只需创建一个符号链接：
 
 ```bash
 sudo ln -s /path/to/cas.war /etc/init.d/cas
 service cas start
 ```
 
-You can also flag the application to start automatically using your standard operating system tools. For example, on Debian:
+您还可以标记应用程序，以便使用您的操作系统提供的工具来配置自动启动。 例如，在Debian上：
 
 ```bash
 update-rc.d myapp defaults <priority>
