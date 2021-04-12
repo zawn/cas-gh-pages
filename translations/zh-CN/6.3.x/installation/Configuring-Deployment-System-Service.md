@@ -31,7 +31,7 @@ service cas start
 update-rc.d myapp defaults <priority>
 ```
 
-### Security
+### 安全性
 
 当以`root`执行时，即使用`root`用户去启动`init.d`服务时，CAS默认以拥有当前web程序文件的用户身份去运行web程序的可执行脚本。 您**永远** 不应该以 `root` 身份运行CAS，因此更不应该让`root`作为Web应用程序文件的拥有者。 而是应该创建一个特定用户以运行CAS，并使用 `chown` 使其成为文件的所有者。 例如：
 
@@ -45,13 +45,13 @@ chown bootapp:bootapp /path/to/cas.war
 chmod 500 /path/to/cas.war
 ```
 
-Additionally, you should also take steps to limit the damage if the CAS web application or the account that’s running it is compromised. If an attacker does gain access, they could make the web application file writable and change its contents. One way to protect against this is to make it immutable using `chattr`:
+此外，你也应该采取措施降低损失，防止CAS Web应用程序或正在运行它的帐户被泄露。 如果攻击者确实获得了访问权限，则他们可以使Web应用程序文件可写并更改其内容。 防止这种情况的一个办法是使用 `chattr` 使它变得不可变：
 
 ```bash
 sudo chattr +i /path/to/cas.war
 ```
 
-This will prevent any user, including `root`, from modifying the file.
+这将防止任何用户修改文件，包括 `root`。
 
 ## `systemd` 服务
 
