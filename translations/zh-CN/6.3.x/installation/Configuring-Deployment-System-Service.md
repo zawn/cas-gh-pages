@@ -55,7 +55,7 @@ sudo chattr +i /path/to/cas.war
 
 ## `systemd` 服务
 
-To install CAS as a `systemd` service create a script named `cas.service` using the following example and place it in `/etc/systemd/system` directory:
+要将CAS作为 `systemd` 服务安装，请使用以下示例创建一个名为 `cas.service` 的脚本，并将其放在 `/etc/systemd/system`目录中：
 
 ```ini
 [Unit]
@@ -71,23 +71,23 @@ SuccessExitStatus=143
 WantedBy=multi-user.target
 ```
 
-<div class="alert alert-info"><strong>Not So Fast</strong><p>Remember to change the <code>Description</code>, <code>User</code> and <code>ExecStart</code> fields for your deployment.</p></div>
+<div class="alert alert-info"><strong>別著急</strong><p>请根据你的部署情况对<code>Description</code>, <code>User</code> 和 <code>ExecStart</code>进行设置。</p></div>
 
-The user that runs the CAS web application, PID file and console log file are managed by `systemd` itself and therefore must be configured using appropriate fields in `service` script. Consult [the service unit configuration man page](https://www.freedesktop.org/software/systemd/man/systemd.service.html) for more details.
+通过这种方式运行CAS Web应用程序用户PID文件和控制台日志文件由 `systemd` 本身管理，因此必须在 `service` 脚本中相应的字段进行合适的配置。 有关更多详细信息，请查阅[服务单元配置手册](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
 
-To flag the application to start automatically on system boot use the following command:
+要将应用程序标记为在系统引导时自动启动，请使用以下命令：
 
 ```bash
 systemctl enable cas.service
 ```
 
-Refer to `man systemctl` for more details.
+有关更多详细信息，请参考 `man systemctl`
 
 ## Upstart
 
-[Upstart](http://upstart.ubuntu.com/) is an event-based service manager, a potential replacement for the System V init that offers more control on the behavior of the different daemons. When using Ubuntu you probably have it installed and configured already (check if there are any jobs with a name starting with `cas` in `/etc/init`).
+[Upstart](http://upstart.ubuntu.com/) 是一个基于事件的服务管理器，它是System V init的潜在替代品，它提供了对不同守护程序行为的更多控制。 当使用Ubuntu时，您可能已经安装并配置了它（检查 `/etc/init`中是否有任何名称以 `cas` 开头的作业）。
 
-We create a job `cas.conf` to start the CAS web application:
+我们创建一个作业 `cas.conf` 以启动CAS Web应用程序：
 
 ```bash
 # Place in /home/{user}/.config/cas
@@ -97,15 +97,15 @@ respawn
 exec java -jar /path/to/cas.war
 ```
 
-Now run `start cas` and your service will start. Upstart offers many job configuration options and you can find [most of them here](http://upstart.ubuntu.com/cookbook/).
+现在运行 `start cas` 命令 ，您的服务将启动。 Upstart 提供了许多作业配置选项，并且您可以在这里找到 [大多数选项。](http://upstart.ubuntu.com/cookbook/)。
 
 ## Windows 服务
 
 ### Windows服务包装器
 
-CAS may be started as Windows service using [winsw](https://github.com/kohsuke/winsw).
+可以使用[winsw](https://github.com/kohsuke/winsw)将CAS作为Windows服务启动。
 
-Winsw provides programmatic means to `install/uninstall/start/stop` a service. In addition, it may be used to run any kind of executable as a service under Windows.
+Winsw提供了编程方式来 `install/uninstall/start/stop`服务。 In addition, it may be used to run any kind of executable as a service under Windows.
 
 Once you have downloaded the Winsw binaries, the `cas.xml` configuration file that defines our Windows service should look like this:
 
