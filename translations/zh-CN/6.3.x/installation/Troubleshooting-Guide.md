@@ -1,16 +1,16 @@
 ---
 layout: default
-title: CAS - Troubleshooting Guide
-category: Installation
+title: CAS - 故障排除指南
+category: 安装
 ---
 
-# Troubleshooting Guide
+# 疑难解答
 
-A number of common questions and answers are gathered here. Please watch for updates as this is likely to grow as time/development moves on.
+这里收集了一些常见的问题和答案。 请注意更新，因为随着时间/发展的发展，更新可能会增加。
 
-## Review Logs
+## 查看日志
 
-CAS server logs are the best resource for determining the root cause of the problem, provided you have configured the appropriate log levels. Specifically you want to make sure `DEBUG` levels are turned on the `org.apereo` package in the log configuration:
+如果已配置适当的日志级别，则CAS服务器日志是确定问题根本原因的最佳资源。 具体来说，您要确保在日志配置中为 `org.apereo`包打开 `DEBUG`级别的日志。
 
 ```xml
 <Logger name="org.apereo" level="trace" additivity="false" includeLocation="true">
@@ -19,17 +19,17 @@ CAS server logs are the best resource for determining the root cause of the prob
 </Logger>
 ```
 
-When changes are applied, restart the server environment and observe the log files to get a better understanding of CAS behavior. For more info, please [review  this guide](../logging/Logging.html) on how to configure logs with CAS.
+应用更改后，请重新启动服务器环境并观察日志文件，以更好地了解CAS行为 。 有关更多信息，请 [本指南](../logging/Logging.html) ，了解如何使用CAS配置日志。
 
-Note that the above configuration block only addresses logging behavior of CAS components; not those upon which CAS depends. Consult the log4j configuration and turn on appropriate `DEBUG` logs for each relevant component. Those are usually your best data source for diagnostics and troubleshooting.
+请注意，以上配置代码仅开启了CAS组件的日志记录行为记录，不是CAS所依赖的第三方组件。 请参考log4j 配置，并为每个相关组件适当的打开 `DEBUG` 日志。 这些通常是您进行诊断和故障排除的最佳数据源。
 
-If your container of choice is [Apache Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/logging.html), you may also want to look into your `catalina.out` and `localhost-X-Y-Z.log` log files to learn more about source of issues.
+如果你选择的容器是 [Apache Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/logging.html)，你可能也想看看你的 `catalina.out`和 `localhost-X-Y-Z.log`日志文件，以了解更多的问题根源。
 
-## Deployment Problem; X Configuration Issue. Can You Help?
+## 部署问题； 某某配置问题。 你能帮我吗？
 
-[Study this](#review-logs).
+[请继续研究这个](#review-logs)。
 
-## How do I tune/extend MongoDb, MySQL, Spring Webflow, etc?
+## 如何调整/扩展MongoDb，MySQL，Spring Webflow等？
 
 If you have a question about tuning and configuration of external components utilized by CAS and you have a need to achieve more advanced use cases other than what the CAS defaults offer, your question is best addressed by the community in charge of that component's development and support. As a general rule, you should always pick a technology with which you are most familiar, or otherwise, shoot a question to the Spring Webflow, MongoDb, Hazelcast, etc forums to have experts review and recommend ideas.
 
