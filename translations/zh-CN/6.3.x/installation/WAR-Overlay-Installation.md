@@ -124,4 +124,4 @@ CAS可以部署到许多servlet容器中。 有关更多信息，请参见 [本�
 
 在使用Gradle的情况，如果你需要了解CAS BOM （`org.apereo.cas:cas-server-support-bom`）的高级用法，请 [使用本指南](https://plugins.gradle.org/plugin/io.spring.dependency-management)，并对Gradle构建进行相应的配置。
 
-<sub>(1) [WAR Overlays](http://maven.apache.org/plugins/maven-war-plugin/overlays.html)</sub>
+<sub>（1）[WAR覆盖]（http://maven.apache.org/plugins/maven-war-plugin/overlays.html）</sub>
