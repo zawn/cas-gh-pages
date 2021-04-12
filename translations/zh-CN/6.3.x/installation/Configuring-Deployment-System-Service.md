@@ -105,9 +105,9 @@ exec java -jar /path/to/cas.war
 
 可以使用[winsw](https://github.com/kohsuke/winsw)将CAS作为Windows服务启动。
 
-Winsw提供了编程方式来 `install/uninstall/start/stop`服务。 In addition, it may be used to run any kind of executable as a service under Windows.
+Winsw提供了编程方式来 `install/uninstall/start/stop`服务。 另外，它可以在Windows下将任何类型的可执行文件作为服务运行。
 
-Once you have downloaded the Winsw binaries, the `cas.xml` configuration file that defines our Windows service should look like this:
+下载Winsw二进制文件后，使用`cas.xml` 文件定义我们的Windows服务，如下所示：
 
 ```xml
 <service>
@@ -120,16 +120,16 @@ Once you have downloaded the Winsw binaries, the `cas.xml` configuration file th
 </service>
 ```
 
-Finally, you have to rename the `winsw.exe` to `cas.exe` so that its name matches with the `cas.xml` configuration file. Thereafter you can install the service like so:
+最后，必须将 `winsw.exe` 重命名为 `cas.exe` 以便其名称与 `cas.xml` 配置文件匹配。 之后，您可以像这样安装服务：
 
 ```bash
 cas.exe install
 ```
 
-Similarly, you may use `uninstall`, `start`, `stop`, etc.
+类似地，可以使用 `uninstall`, `start`, `stop`等命令进行其他操作。
 
-Refer to [this example](https://github.com/snicoll-scratches/spring-boot-daemon) to learn more.
+请参考[本示例](https://github.com/snicoll-scratches/spring-boot-daemon)以了解更多信息。
 
 ### 其他
 
-CAS web applications may also be started as Windows service using [Procrun](http://commons.apache.org/proper/commons-daemon/procrun.html) of the [Apache Commons Daemon project](http://commons.apache.org/daemon/index.html). Procrun is a set of applications that allow Windows users to wrap Java applications as Windows services. Such a service may be set to start automatically when the machine boots and will continue to run without any user being logged on.
+也可以使用 [Apache Commons Daemon 项目](http://commons.apache.org/daemon/index.html)的 [Proculn](http://commons.apache.org/proper/commons-daemon/procrun.html) 将CAS web 应用程序作为Windows服务启动。 Procrun是一组应用程序，允许Windows用户将Java应用程序包装为Windows服务。 可以将此类服务设置为在计算机启动时自动启动，并且将在没有任何用户登录的情况下继续运行。
