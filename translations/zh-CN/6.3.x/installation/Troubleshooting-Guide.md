@@ -31,7 +31,7 @@ category: 安装
 
 ## 如何调整/扩展MongoDb，MySQL，Spring Webflow等？
 
-If you have a question about tuning and configuration of external components utilized by CAS and you have a need to achieve more advanced use cases other than what the CAS defaults offer, your question is best addressed by the community in charge of that component's development and support. As a general rule, you should always pick a technology with which you are most familiar, or otherwise, shoot a question to the Spring Webflow, MongoDb, Hazelcast, etc forums to have experts review and recommend ideas.
+如果您对CAS使用的外部组件的调优和配置有疑问，并且需要实现CAS默认设置以外的其他更高级的用例，那么最好由负责该组件开发的社区来解决和支持。 一般来说， 你应该总是选择你最熟悉的技术，否则，请向Spring Webflow、MongoDb、Hazelcast等论坛中的专家寻求建议和评审。
 
 Typical questions in this category that are best answered elsewhere are:
 
