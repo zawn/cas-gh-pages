@@ -44,9 +44,9 @@ category: 安装
 
 在某些情况下，您可能会了解到可以修复与CAS部署相关的缺陷或行为，并且建议您升级到当前可用的 `SNAPSHOT` 版本。 根据您的选择的[安装方式](WAR-Overlay-Installation.html)，您需要找到你当前部署配置中的设置，并将描述您 *当前* CAS 版本的构建脚本升级到下一个 `SNAPSHOT`版本。 构建脚本还应该有README 文件中添加关于如何获取并在生成 `SNAPSHOT` 版本的额外说明。
 
-要找到适合于你当前部署的 `SNAPSHOT` 版本， 您可以查看发布计划或CAS codebase的适当分支。 例如，如果您已部署CAS `2.0.4` ，并且发布计划显示下一个发行版针对 `2.0.5`，那么可用的 `SNAPSHOT` 发行版将是 `2.0.5-SNAPSHOT`。 You can also take a look at the milestone setting assigned to the issue/pull request and determine the `SNAPSHOT` release. `SNAPSHOT` releases are always postfixed with `-SNAPSHOT`. If the assigned milestone to an issue is for instance `1.2.5-RC1`, then the `SNAPSHOT` release would be `1.2.5-RC1-SNAPSHOT`.
+要找到适合于你当前部署的 `SNAPSHOT` 版本， 您可以查看发布计划或CAS codebase的适当分支。 例如，如果您已部署CAS `2.0.4` ，并且发布计划显示下一个发行版针对 `2.0.5`，那么可用的 `SNAPSHOT` 发行版将是 `2.0.5-SNAPSHOT`。 您还可以查看分配给issue/pull请求的里程碑设置，已确定` SNAPSHOT`发布。 `SNAPSHOT` 发行版始终使用 `-SNAPSHOT`后缀。 如果为issue分配的里程碑为 `1.2.5-RC1`，那么 `SNAPSHOT` 发行版将是 `1.2.5-RC1-SNAPSHOT`。
 
-## Configuring SSL Behind Load Balancer/Proxy
+## 在负载均衡器/代理后面配置SSL
 
 You might be running CAS inside a [servlet container](Configuring-Servlet-Container.html) such as Apache Tomcat behind some sort of proxy such as haproxy, Apache httpd, etc where the proxy is handling the SSL termination. The connections to the user are secured via `https`, yet those between the proxy and CAS service are just `http`.
 
