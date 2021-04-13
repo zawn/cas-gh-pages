@@ -1,16 +1,16 @@
 ---
 layout: default
-title: CAS - Troubleshooting Guide
-category: Installation
+title: CAS - 故障排除指南
+category: 安装
 ---
 
-# Troubleshooting Guide
+# 疑难解答
 
-A number of common questions and answers are gathered here. Please watch for updates as this is likely to grow as time/development moves on.
+这里收集了一些常见的问题和答案。 请注意更新，因为随着时间/发展的发展，更新可能会增加。
 
-## Review Logs
+## 查看日志
 
-CAS server logs are the best resource for determining the root cause of the problem, provided you have configured the appropriate log levels. Specifically you want to make sure `DEBUG` levels are turned on the `org.apereo` package in the log configuration:
+如果已配置适当的日志级别，则CAS服务器日志是确定问题根本原因的最佳资源。 具体来说，您要确保在日志配置中为 `org.apereo`包打开 `DEBUG`级别的日志。
 
 ```xml
 <Logger name="org.apereo" level="trace" additivity="false" includeLocation="true">
@@ -19,34 +19,34 @@ CAS server logs are the best resource for determining the root cause of the prob
 </Logger>
 ```
 
-When changes are applied, restart the server environment and observe the log files to get a better understanding of CAS behavior. For more info, please [review  this guide](../logging/Logging.html) on how to configure logs with CAS.
+应用更改后，请重新启动服务器环境并观察日志文件，以更好地了解CAS行为 。 有关更多信息，请 [本指南](../logging/Logging.html) ，了解如何使用CAS配置日志。
 
-Note that the above configuration block only addresses logging behavior of CAS components; not those upon which CAS depends. Consult the log4j configuration and turn on appropriate `DEBUG` logs for each relevant component. Those are usually your best data source for diagnostics and troubleshooting.
+请注意，以上配置代码仅开启了CAS组件的日志记录行为记录，不是CAS所依赖的第三方组件。 请参考log4j 配置，并为每个相关组件适当的打开 `DEBUG` 日志。 这些通常是您进行诊断和故障排除的最佳数据源。
 
-If your container of choice is [Apache Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/logging.html), you may also want to look into your `catalina.out` and `localhost-X-Y-Z.log` log files to learn more about source of issues.
+如果你选择的容器是 [Apache Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/logging.html)，你可能也想看看你的 `catalina.out`和 `localhost-X-Y-Z.log`日志文件，以了解更多的问题根源。
 
-## Deployment Problem; X Configuration Issue. Can You Help?
+## 部署问题； 某某配置问题。 你能帮我吗？
 
-[Study this](#review-logs).
+[请继续研究这个](#review-logs)。
 
-## How do I tune/extend MongoDb, MySQL, Spring Webflow, etc?
+## 如何调整/扩展MongoDb，MySQL，Spring Webflow等？
 
-If you have a question about tuning and configuration of external components utilized by CAS and you have a need to achieve more advanced use cases other than what the CAS defaults offer, your question is best addressed by the community in charge of that component's development and support. As a general rule, you should always pick a technology with which you are most familiar, or otherwise, shoot a question to the Spring Webflow, MongoDb, Hazelcast, etc forums to have experts review and recommend ideas.
+如果您对CAS使用的外部组件的调优和配置有疑问，并且需要实现CAS默认设置以外的其他更高级的用例，那么最好由负责该组件开发的社区来解决和支持。 一般来说， 你应该总是选择你最熟悉的技术，否则，请向Spring Webflow、MongoDb、Hazelcast等论坛中的专家寻求建议和评审。
 
-Typical questions in this category that are best answered elsewhere are:
+以下类型的典型问题在其他地方可以得到最好的回答：
 
-- How do I configure SSL for Apache Tomcat, Jetty, etc?
-- How do I pass variables from one flow to the next in Spring webflow?
-- How do I tune up a hazelcast cluster?
-- What is the recommended strategy for making MongoDb highly available?
+- 如何为Apache Tomcat，Jetty等配置SSL？
+- 如何在Spring Webflow中将变量从一个流传递到下一个流？
+- 我如何调优hazelcast群集？
+- 为提高MongoDb的可用性，有什么建议的策略？
 
-## Using `SNAPSHOT` Versions
+## 使用 `SNAPSHOT` 版本
 
-There may be cases where you learn that a fix is available for the defect or behavior relevant for your CAS deployments and you may be advised to upgrade to the current available `SNAPSHOT` release. Depending on your [choice of installation](WAR-Overlay-Installation.html), you will need to find the setting in your deployment configuration and build scripts that describes your *current* CAS version and bump that to the next `SNAPSHOT`. The build scripts should also have additional instructions on how to obtain and build `SNAPSHOT` releases in README files and such.
+在某些情况下，您可能会了解到可以修复与CAS部署相关的缺陷或行为，并且建议您升级到当前可用的 `SNAPSHOT` 版本。 根据您的选择的[安装方式](WAR-Overlay-Installation.html)，您需要找到你当前部署配置中的设置，并将描述您 *当前* CAS 版本的构建脚本升级到下一个 `SNAPSHOT`版本。 构建脚本还应该有README 文件中添加关于如何获取并在生成 `SNAPSHOT` 版本的额外说明。
 
-To find out what `SNAPSHOT` version applies to your deployment, you can either look at the release schedule or the appropriate branch of the CAS codebase. For instance, if you have deployed CAS `2.0.4` and the release schedule shows the next release is targeted for a `2.0.5`, then the available `SNAPSHOT` release would be `2.0.5-SNAPSHOT`. You can also take a look at the milestone setting assigned to the issue/pull request and determine the `SNAPSHOT` release. `SNAPSHOT` releases are always postfixed with `-SNAPSHOT`. If the assigned milestone to an issue is for instance `1.2.5-RC1`, then the `SNAPSHOT` release would be `1.2.5-RC1-SNAPSHOT`.
+要找到适合于你当前部署的 `SNAPSHOT` 版本， 您可以查看发布计划或CAS codebase的适当分支。 例如，如果您已部署CAS `2.0.4` ，并且发布计划显示下一个发行版针对 `2.0.5`，那么可用的 `SNAPSHOT` 发行版将是 `2.0.5-SNAPSHOT`。 您还可以查看分配给issue/pull请求的里程碑设置，已确定` SNAPSHOT`发布。 `SNAPSHOT` 发行版始终使用 `-SNAPSHOT`后缀。 如果为issue分配的里程碑为 `1.2.5-RC1`，那么 `SNAPSHOT` 发行版将是 `1.2.5-RC1-SNAPSHOT`。
 
-## Configuring SSL Behind Load Balancer/Proxy
+## 在负载均衡器/代理后面配置SSL
 
 You might be running CAS inside a [servlet container](Configuring-Servlet-Container.html) such as Apache Tomcat behind some sort of proxy such as haproxy, Apache httpd, etc where the proxy is handling the SSL termination. The connections to the user are secured via `https`, yet those between the proxy and CAS service are just `http`.
 
