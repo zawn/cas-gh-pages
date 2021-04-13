@@ -33,18 +33,18 @@ category: 安装
 
 如果您对CAS使用的外部组件的调优和配置有疑问，并且需要实现CAS默认设置以外的其他更高级的用例，那么最好由负责该组件开发的社区来解决和支持。 一般来说， 你应该总是选择你最熟悉的技术，否则，请向Spring Webflow、MongoDb、Hazelcast等论坛中的专家寻求建议和评审。
 
-Typical questions in this category that are best answered elsewhere are:
+以下类型的典型问题在其他地方可以得到最好的回答：
 
-- How do I configure SSL for Apache Tomcat, Jetty, etc?
-- How do I pass variables from one flow to the next in Spring webflow?
-- How do I tune up a hazelcast cluster?
-- What is the recommended strategy for making MongoDb highly available?
+- 如何为Apache Tomcat，Jetty等配置SSL？
+- 如何在Spring Webflow中将变量从一个流传递到下一个流？
+- 我如何调优hazelcast群集？
+- 为提高MongoDb的可用性，有什么建议的策略？
 
-## Using `SNAPSHOT` Versions
+## 使用 `SNAPSHOT` 版本
 
-There may be cases where you learn that a fix is available for the defect or behavior relevant for your CAS deployments and you may be advised to upgrade to the current available `SNAPSHOT` release. Depending on your [choice of installation](WAR-Overlay-Installation.html), you will need to find the setting in your deployment configuration and build scripts that describes your *current* CAS version and bump that to the next `SNAPSHOT`. The build scripts should also have additional instructions on how to obtain and build `SNAPSHOT` releases in README files and such.
+在某些情况下，您可能会了解到可以修复与CAS部署相关的缺陷或行为，并且建议您升级到当前可用的 `SNAPSHOT` 版本。 根据您的选择的[安装方式](WAR-Overlay-Installation.html)，您需要找到你当前部署配置中的设置，并将描述您 *当前* CAS 版本的构建脚本升级到下一个 `SNAPSHOT`版本。 构建脚本还应该有README 文件中添加关于如何获取并在生成 `SNAPSHOT` 版本的额外说明。
 
-To find out what `SNAPSHOT` version applies to your deployment, you can either look at the release schedule or the appropriate branch of the CAS codebase. For instance, if you have deployed CAS `2.0.4` and the release schedule shows the next release is targeted for a `2.0.5`, then the available `SNAPSHOT` release would be `2.0.5-SNAPSHOT`. You can also take a look at the milestone setting assigned to the issue/pull request and determine the `SNAPSHOT` release. `SNAPSHOT` releases are always postfixed with `-SNAPSHOT`. If the assigned milestone to an issue is for instance `1.2.5-RC1`, then the `SNAPSHOT` release would be `1.2.5-RC1-SNAPSHOT`.
+要找到适合于你当前部署的 `SNAPSHOT` 版本， 您可以查看发布计划或CAS codebase的适当分支。 例如，如果您已部署CAS `2.0.4` ，并且发布计划显示下一个发行版针对 `2.0.5`，那么可用的 `SNAPSHOT` 发行版将是 `2.0.5-SNAPSHOT`。 You can also take a look at the milestone setting assigned to the issue/pull request and determine the `SNAPSHOT` release. `SNAPSHOT` releases are always postfixed with `-SNAPSHOT`. If the assigned milestone to an issue is for instance `1.2.5-RC1`, then the `SNAPSHOT` release would be `1.2.5-RC1-SNAPSHOT`.
 
 ## Configuring SSL Behind Load Balancer/Proxy
 
